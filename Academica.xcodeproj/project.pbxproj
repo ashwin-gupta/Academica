@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830B6B1C251A128900BD53E4 /* Academica.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */; };
+		830B6B27251A154E00BD53E4 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B26251A154E00BD53E4 /* DatabaseProtocol.swift */; };
+		830B6B29251A171E00BD53E4 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B28251A171E00BD53E4 /* MulticastDelegate.swift */; };
+		830B6B2B251A17DE00BD53E4 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B2A251A17DE00BD53E4 /* CoreDataController.swift */; };
+		830B6B30251A1CD400BD53E4 /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B2C251A1CD400BD53E4 /* Student+CoreDataClass.swift */; };
+		830B6B31251A1CD400BD53E4 /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B2D251A1CD400BD53E4 /* Student+CoreDataProperties.swift */; };
+		830B6B32251A1CD400BD53E4 /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B2E251A1CD400BD53E4 /* Subject+CoreDataClass.swift */; };
+		830B6B33251A1CD400BD53E4 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B6B2F251A1CD400BD53E4 /* Subject+CoreDataProperties.swift */; };
 		83297FA2250ADC6200EC25FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83297FA1250ADC6200EC25FD /* AppDelegate.swift */; };
 		83297FA4250ADC6200EC25FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83297FA3250ADC6200EC25FD /* SceneDelegate.swift */; };
 		83297FA9250ADC6200EC25FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83297FA7250ADC6200EC25FD /* Main.storyboard */; };
@@ -18,6 +26,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		830B6B1B251A128900BD53E4 /* Academica.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Academica.xcdatamodel; sourceTree = "<group>"; };
+		830B6B26251A154E00BD53E4 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		830B6B28251A171E00BD53E4 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		830B6B2A251A17DE00BD53E4 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		830B6B2C251A1CD400BD53E4 /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
+		830B6B2D251A1CD400BD53E4 /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		830B6B2E251A1CD400BD53E4 /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		830B6B2F251A1CD400BD53E4 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		83297F9E250ADC6200EC25FD /* Academica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Academica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83297FA1250ADC6200EC25FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83297FA3250ADC6200EC25FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +57,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		830B6B19251A127100BD53E4 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				830B6B2C251A1CD400BD53E4 /* Student+CoreDataClass.swift */,
+				830B6B2D251A1CD400BD53E4 /* Student+CoreDataProperties.swift */,
+				830B6B2E251A1CD400BD53E4 /* Subject+CoreDataClass.swift */,
+				830B6B2F251A1CD400BD53E4 /* Subject+CoreDataProperties.swift */,
+				830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		830B6B25251A153900BD53E4 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				830B6B26251A154E00BD53E4 /* DatabaseProtocol.swift */,
+				830B6B28251A171E00BD53E4 /* MulticastDelegate.swift */,
+				830B6B2A251A17DE00BD53E4 /* CoreDataController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		83297F95250ADC6200EC25FD = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +98,8 @@
 		83297FA0250ADC6200EC25FD /* Academica */ = {
 			isa = PBXGroup;
 			children = (
+				830B6B25251A153900BD53E4 /* Database */,
+				830B6B19251A127100BD53E4 /* DataModel */,
 				83297FC3250B3E7E00EC25FD /* ViewControllers */,
 				83297FA1250ADC6200EC25FD /* AppDelegate.swift */,
 				83297FA3250ADC6200EC25FD /* SceneDelegate.swift */,
@@ -108,7 +148,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Ashwin Gupta";
 				TargetAttributes = {
 					83297F9D250ADC6200EC25FD = {
@@ -154,9 +194,17 @@
 			files = (
 				83297FC1250B3E7900EC25FD /* HomeViewController.swift in Sources */,
 				83297FA2250ADC6200EC25FD /* AppDelegate.swift in Sources */,
+				830B6B1C251A128900BD53E4 /* Academica.xcdatamodeld in Sources */,
+				830B6B27251A154E00BD53E4 /* DatabaseProtocol.swift in Sources */,
+				830B6B2B251A17DE00BD53E4 /* CoreDataController.swift in Sources */,
 				83297FC0250B3E7900EC25FD /* UnitViewController.swift in Sources */,
+				830B6B32251A1CD400BD53E4 /* Subject+CoreDataClass.swift in Sources */,
 				83297FA4250ADC6200EC25FD /* SceneDelegate.swift in Sources */,
 				83297FC2250B3E7900EC25FD /* UnitTableViewCell.swift in Sources */,
+				830B6B31251A1CD400BD53E4 /* Student+CoreDataProperties.swift in Sources */,
+				830B6B29251A171E00BD53E4 /* MulticastDelegate.swift in Sources */,
+				830B6B30251A1CD400BD53E4 /* Student+CoreDataClass.swift in Sources */,
+				830B6B33251A1CD400BD53E4 /* Subject+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +256,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -232,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,6 +317,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -286,7 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -300,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55Y4QVCY2D;
 				INFOPLIST_FILE = Academica/Info.plist;
@@ -307,8 +358,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ashwinGupta.Academica;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.ashwin-Gupta.Academica";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -318,6 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55Y4QVCY2D;
 				INFOPLIST_FILE = Academica/Info.plist;
@@ -325,8 +378,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ashwinGupta.Academica;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.ashwin-Gupta.Academica";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -354,6 +408,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				830B6B1B251A128900BD53E4 /* Academica.xcdatamodel */,
+			);
+			currentVersion = 830B6B1B251A128900BD53E4 /* Academica.xcdatamodel */;
+			path = Academica.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 83297F96250ADC6200EC25FD /* Project object */;
 }
