@@ -107,6 +107,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     func deleteSubject(subject: Subject) {
         persistentContainer.viewContext.delete(subject)
+        removeSubjectFromStudent(subject: subject, student: defaultStudent)
     }
     
     func deleteStudent(student: Student) {
@@ -217,10 +218,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     
     func createDefaultEntries() {
-        let _ = addSubject(name: "iOS App Dev", code: "FIT3178", grade: "D", points: 6, score: 70, year: 2020)
-        let _ = addSubject(name: "Software Security", code: "FIT3173", grade: "C", points: 6, score: 69, year: 2020)
-        let _ = addSubject(name: "Usability", code: "FIT3175", grade: "D", points: 6, score: 72, year: 2020)
-        let _ = addSubject(name: "Derivatives", code: "BFC2751", grade: "D", points: 6, score: 75, year: 2020)
+    
     }
     
     
