@@ -78,38 +78,91 @@ class UnitViewController: UIViewController {
         switch gradeControl.selectedSegmentIndex {
         case 1:
             gradeControl.selectedSegmentTintColor = .systemTeal
+            gradeControl.reloadInputViews()
         case 2:
             gradeControl.selectedSegmentTintColor = .systemYellow
+            gradeControl.reloadInputViews()
         case 3:
             gradeControl.selectedSegmentTintColor = .systemOrange
+            gradeControl.reloadInputViews()
         case 4:
             gradeControl.selectedSegmentTintColor = .systemRed
+            gradeControl.reloadInputViews()
         default:
             gradeControl.selectedSegmentTintColor = .systemGreen
+            gradeControl.reloadInputViews()
         }
     }
     
 
     // Controls what the save button does
     @IBAction func saveButton(_ sender: Any) {
-        if newSubject == false {
-            subject!.code = unitCodeInput.text
-            subject!.name = nameTextField.text
+        
+        if checkInputValidity() == true {
+            let name = nameTextField.text
+            let code = unitCodeInput.text
             let score = Double(scoreInput.text!)
             let points = Double(creditInput.text!)
             let year = Int16(yearInput.text!)
-    
-            subject!.grade = grades[gradeControl.selectedSegmentIndex]
-            subject!.score = score!
-            subject!.year = year!
-            subject!.points = points!
+            let grade = grades[gradeControl.selectedSegmentIndex]
+            print(newSubject)
             
+            if newSubject {
+
+                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!)
+                
+            } else if !newSubject {
+                subject?.name = name
+                subject?.code = code
+                subject?.score = score!
+                subject?.points = points!
+                subject?.year = year!
+                subject?.grade = grade
+            }
+            
+            navigationController?.popViewController(animated: true)
             
         }
         
+    }
+    
+    func checkInputValidity() -> Bool {
+        if nameTextField.text == ""  {
+            displayErrorMessage("Please enter a name!")
+            return false
+        }
+        
+        if unitCodeInput.text == "" {
+            displayErrorMessage("Please enter a unit code!")
+            return false
+        }
+        
+        guard let score = Double(scoreInput.text!) else {
+            displayErrorMessage("Please enter a score!")
+            return false
+        }
+        
+        guard let points = Double(creditInput.text!) else {
+            displayErrorMessage("Please enter credit points!")
+            return false
+        }
+        
+        guard let year = Int16(yearInput.text!) else {
+            displayErrorMessage("Please entera year!")
+            return false
+        }
+
+        return true
         
     }
     
+    func displayErrorMessage(_ errorMessage: String) {
+        let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     /*
     // MARK: - Navigation

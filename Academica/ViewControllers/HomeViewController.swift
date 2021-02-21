@@ -8,6 +8,20 @@
 
 import UIKit
 
+// Extension for all View Controllers to allow uesrs to tap out of a text field by tapping the background
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+    
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener {
     
 
@@ -25,6 +39,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var listenerType: ListenerType = .all
     var marksSum: Double = 0
     var creditSum: Double = 0
+    var gpaSum: Double = 0
     
     @IBAction func newSubject(_ sender: Any) {
         
@@ -41,6 +56,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.unitTableView.delegate = self
         self.unitTableView.dataSource = self
+        
 
 
     }
@@ -49,6 +65,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+        unitTableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,6 +81,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
         
+        if units.isEmpty {
+            cell.detailTextLabel?.text = "Click + to Add a subject!"
+        }
+        
         let subject = units[indexPath.row]
         cell.gradeLabel.text = subject.grade
         cell.scoreLabel.text = String(subject.score)
@@ -74,10 +95,38 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
+    // MARK: - Table View Functions
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // Allows the deletion of advertisements my swiping. Also gives the user feedback on whether they want to delete the advert
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let unit = units[indexPath.row]
+            // Delete the row from the data source
+            let alertController = UIAlertController(title: "Delete?", message: "Are you sure you want to delete this subject? This cannot be reversed.", preferredStyle: UIAlertController.Style.alert)
+            
+            
+            alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (_) in
+                // Removing the advertisement from teh user
+                self.databaseController?.deleteSubject(subject: unit)
+                
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+
+        }
+    }
+    
 
     // MARK: - Database Listeners
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject]) {
+        // Do nothing
 
         
     }
@@ -95,9 +144,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let wam = String(format: "%.4f", marksSum/creditSum)
+        
         wamLabel.text = wam
-        
-        
+    }
+    
+    func gpaCalculate() {
+        for subject in units {
+            switch subject.grade {
+            case "D":
+                gpaSum = (subject.points * 3) + gpaSum
+            case "C":
+                gpaSum = (subject.points * 2) + gpaSum
+            case "P":
+                gpaSum = (subject.points * 1) + gpaSum
+            case "N":
+                gpaSum = (subject.points * 0) + gpaSum
+                
+            default:
+                gpaSum = (subject.points * 4) + gpaSum
+            }
+            
+            
+        }
     }
     
     // MARK: - Navigation
