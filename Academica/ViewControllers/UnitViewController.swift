@@ -41,6 +41,8 @@ class UnitViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
+        navigationItem.backBarButtonItem?.tintColor = .label
+        
         
 
     }
