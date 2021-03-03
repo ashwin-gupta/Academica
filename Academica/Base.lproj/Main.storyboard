@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -179,7 +180,7 @@
                     <tabBarItem key="tabBarItem" title="Home" selectedImage="character.book.closed.fill" catalog="system" id="QO2-Vt-yIz"/>
                     <navigationItem key="navigationItem" title="Academica" largeTitleDisplayMode="always" id="2xP-DW-uWv">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="AD2-yA-8lW">
-                            <color key="tintColor" red="0.19228456739999999" green="0.22930212250000001" blue="0.37927544990000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="newSubject:" destination="ggr-ug-WBH" id="4LA-ht-R3B"/>
                                 <segue destination="edv-1m-NH5" kind="show" identifier="newSubjectSegue" id="qCu-73-KFP"/>
@@ -331,6 +332,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Subject" id="fSL-5i-LIe">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Wnf-CG-pNy">
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="saveButton:" destination="edv-1m-NH5" id="rCd-HD-Q7S"/>
                             </connections>
@@ -353,10 +355,14 @@
     <inferredMetricsTieBreakers>
         <segue reference="dif-gG-qTe"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" systemColor="labelColor"/>
     <resources>
         <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

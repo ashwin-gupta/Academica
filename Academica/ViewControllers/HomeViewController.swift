@@ -26,6 +26,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     var units: [Subject] = []
+    let firstYearUnit: String = "XXX1"
     
     @IBOutlet weak var gpaLabel: UILabel!
     
@@ -39,6 +40,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var listenerType: ListenerType = .all
     var creditSum: Double = 0
     var gpaSum: Double = 0
+    var wamCreditSum: Double = 0
     
     @IBAction func newSubject(_ sender: Any) {
         
@@ -55,7 +57,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.unitTableView.delegate = self
         self.unitTableView.dataSource = self
-        
 
 
     }
@@ -86,7 +87,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.unitLabel.text = subject.code
             cell.creditPoints.text = subject.name
             
-            wamCalculate()
+            monashWamCalculate()
             gpaCalculate()
             return cell
 
@@ -125,8 +126,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject]) {
         // Do nothing
-
-        
     }
     
     func onSubjectChange(change: DatabaseChange, subjects: [Subject]) {
@@ -151,6 +150,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func gpaCalculate() {
         for subject in units {
+            
+            creditSum = subject.points + creditSum
+            
             switch subject.grade {
             case "D":
                 gpaSum = (subject.points * 3) + gpaSum
@@ -169,6 +171,29 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             gpaLabel.text = gpa
             
         }
+    }
+    
+    func monashWamCalculate() {
+        var marksSum: Double = 0
+        gpaSum = 0
+        creditSum = 0
+        wamCreditSum = 0
+        for subject in units {
+            if subject.code?.firstIndex(of: "1") == firstYearUnit.firstIndex(of:"1") {
+                marksSum = (subject.score * subject.points)/2 + marksSum
+                wamCreditSum = subject.points/2 + wamCreditSum
+                
+            } else {
+                marksSum = (subject.score * subject.points) + marksSum
+                wamCreditSum = subject.points + wamCreditSum
+            }
+        
+        let wam = String(format: "%.4f", marksSum/wamCreditSum)
+        
+        wamLabel.text = wam
+    }
+    
+        
     }
     
     // MARK: - Navigation
