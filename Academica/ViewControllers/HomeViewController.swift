@@ -37,7 +37,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     weak var databaseController: DatabaseProtocol?
     var listenerType: ListenerType = .all
-    var marksSum: Double = 0
     var creditSum: Double = 0
     var gpaSum: Double = 0
     
@@ -81,19 +80,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
         
-        if units.isEmpty {
-            cell.detailTextLabel?.text = "Click + to Add a subject!"
-        }
-        
-        let subject = units[indexPath.row]
-        cell.gradeLabel.text = subject.grade
-        cell.scoreLabel.text = String(subject.score)
-        cell.unitLabel.text = subject.code
-        cell.creditPoints.text = subject.name
-        
-        wamCalculate()
-        
-        return cell
+            let subject = units[indexPath.row]
+            cell.gradeLabel.text = subject.grade
+            cell.scoreLabel.text = String(subject.score)
+            cell.unitLabel.text = subject.code
+            cell.creditPoints.text = subject.name
+            
+            wamCalculate()
+            gpaCalculate()
+            return cell
+
     }
     
     // MARK: - Table View Functions
@@ -112,6 +108,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (_) in
                 // Removing the advertisement from teh user
                 self.databaseController?.deleteSubject(subject: unit)
+                self.unitTableView.reloadData()
+                
                 
             }))
             
@@ -137,6 +135,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func wamCalculate() {
+        var marksSum: Double = 0
+        gpaSum = 0
+        creditSum = 0
         for subject in units {
             marksSum = (subject.score * subject.points) + marksSum
             creditSum = subject.points + creditSum
@@ -164,6 +165,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 gpaSum = (subject.points * 4) + gpaSum
             }
             
+            let gpa = String(format: "%.4f", gpaSum/creditSum)
+            gpaLabel.text = gpa
             
         }
     }

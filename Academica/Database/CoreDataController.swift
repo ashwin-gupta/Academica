@@ -98,6 +98,10 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         subject.score = score
         
         return subject
+        
+        if addSubjectToStudent(student: defaultStudent, subject: subject) == false { debugPrint("Failed to add subject to student")
+            
+        }
     }
     
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool {

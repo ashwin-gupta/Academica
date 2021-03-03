@@ -111,7 +111,7 @@ class UnitViewController: UIViewController {
 
                 let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!)
                 
-            } else if !newSubject {
+            } else {
                 subject?.name = name
                 subject?.code = code
                 subject?.score = score!
@@ -148,7 +148,7 @@ class UnitViewController: UIViewController {
         }
         
         guard let year = Int16(yearInput.text!) else {
-            displayErrorMessage("Please entera year!")
+            displayErrorMessage("Please enter a year!")
             return false
         }
 
