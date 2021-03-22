@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Extension for all View Controllers to allow uesrs to tap out of a text field by tapping the background
+// Extension for all View Controllers to allow users to tap out of a text field by tapping the background
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
     
@@ -57,6 +57,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.unitTableView.delegate = self
         self.unitTableView.dataSource = self
+        
 
 
     }
@@ -110,12 +111,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Removing the advertisement from teh user
                 self.databaseController?.deleteSubject(subject: unit)
                 self.unitTableView.reloadData()
-                
-                
             }))
-            
             alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-            
             self.present(alertController, animated: true, completion: nil)
 
         }

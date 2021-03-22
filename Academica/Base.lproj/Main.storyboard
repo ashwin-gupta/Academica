@@ -7,6 +7,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+        <array key="Raleway-Regular.ttf">
+            <string>Raleway-Regular</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="29w-bf-k22">
@@ -19,20 +30,27 @@
                     </tabBar>
                     <connections>
                         <segue destination="doT-nb-lUp" kind="relationship" relationship="viewControllers" id="VPL-Yw-3u3"/>
+                        <segue destination="eD9-MM-3KQ" kind="relationship" relationship="viewControllers" id="e7o-lV-i4V"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ooe-iT-NdR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="629" y="-331"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="ovg-Eo-8Y2">
             <objects>
                 <navigationController id="doT-nb-lUp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="D6v-Hf-Rqv"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="graduationcap.fill" catalog="system" id="D6v-Hf-Rqv"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3kb-iT-Plg">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="36"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="ggr-ug-WBH" kind="relationship" relationship="rootViewController" id="enQ-zd-z0Z"/>
@@ -51,37 +69,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Tkn-EH-AaD">
-                                <rect key="frame" x="16" y="156" width="382" height="63"/>
+                                <rect key="frame" x="16" y="156" width="382" height="62"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MC8-UX-36i">
-                                        <rect key="frame" x="0.0" y="0.0" width="183" height="63"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="62"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5H-cB-Irg">
-                                                <rect key="frame" x="0.0" y="0.0" width="183" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="183" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-GV-6IM">
-                                                <rect key="frame" x="0.0" y="40" width="183" height="23"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="39.5" width="183" height="22.5"/>
+                                                <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4OO-ID-s6g">
-                                        <rect key="frame" x="199" y="0.0" width="183" height="63"/>
+                                        <rect key="frame" x="199" y="0.0" width="183" height="62"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ra5-IO-5g9">
-                                                <rect key="frame" x="0.0" y="0.0" width="183" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="183" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-oE-EQI">
-                                                <rect key="frame" x="0.0" y="40" width="183" height="23"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="39.5" width="183" height="22.5"/>
+                                                <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -90,13 +108,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grades" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-7h-6a6">
-                                <rect key="frame" x="16" y="251" width="382" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <rect key="frame" x="16" y="250" width="382" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-1E-82h">
-                                <rect key="frame" x="0.0" y="275" width="414" height="538"/>
+                                <rect key="frame" x="0.0" y="273.5" width="414" height="539.5"/>
                                 <prototypes>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="9" reuseIdentifier="unitCell" rowHeight="111" id="O4H-yl-Agv" customClass="UnitTableViewCell" customModule="Academica" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55.5" width="374" height="111"/>
@@ -113,12 +131,12 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITCODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wV7-sA-vRO">
                                                                     <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Points" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OS5-RU-y3S">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OS5-RU-y3S">
                                                                     <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -127,15 +145,15 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8Hi-D2-C77">
                                                             <rect key="frame" x="0.0" y="40.5" width="318" height="32.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bF6-df-g90">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bF6-df-g90">
                                                                     <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numeric" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGr-CE-hX1">
                                                                     <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -351,18 +369,121 @@
             </objects>
             <point key="canvasLocation" x="3957" y="-331"/>
         </scene>
+        <!--Subjects-->
+        <scene sceneID="fgV-e6-ozE">
+            <objects>
+                <tableViewController id="BYv-eF-BZS" customClass="SubjectsTableViewController" customModule="Academica" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="m5Y-EO-UhA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="9" reuseIdentifier="unitCell" rowHeight="111" id="OYh-oR-D43" customClass="UnitTableViewCell" customModule="Academica" customModuleProvider="target">
+                                <rect key="frame" x="20" y="55.5" width="374" height="111"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OYh-oR-D43" id="iJO-Pc-yXf">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="111"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9sr-6C-tj2">
+                                            <rect key="frame" x="28" y="19" width="318" height="73"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Qzb-HN-qwh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="318" height="32.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITCODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3c-7H-Xa7">
+                                                            <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
+                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA5-4I-zBT">
+                                                            <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
+                                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wJS-k8-a62">
+                                                    <rect key="frame" x="0.0" y="40.5" width="318" height="32.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkW-qH-Vl2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
+                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numeric" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgA-kM-nnk">
+                                                            <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
+                                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9sr-6C-tj2" firstAttribute="top" secondItem="iJO-Pc-yXf" secondAttribute="topMargin" constant="8" id="8s9-mK-MHr"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9sr-6C-tj2" secondAttribute="bottom" constant="8" id="BVd-AV-Wvd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="9sr-6C-tj2" secondAttribute="trailing" constant="8" id="YvL-hh-U7x"/>
+                                        <constraint firstItem="9sr-6C-tj2" firstAttribute="leading" secondItem="iJO-Pc-yXf" secondAttribute="leadingMargin" constant="8" id="wHp-XR-tM1"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="creditPoints" destination="oA5-4I-zBT" id="KM2-LV-F3Z"/>
+                                    <outlet property="gradeLabel" destination="NkW-qH-Vl2" id="zFD-iY-emQ"/>
+                                    <outlet property="scoreLabel" destination="HgA-kM-nnk" id="vGE-45-7WR"/>
+                                    <outlet property="unitLabel" destination="G3c-7H-Xa7" id="b1L-Hu-YwI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="BYv-eF-BZS" id="FBb-Pn-vKK"/>
+                            <outlet property="delegate" destination="BYv-eF-BZS" id="gYA-re-uyJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Subjects" largeTitleDisplayMode="always" id="U88-o1-GsU"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Po6-5H-pe4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1471" y="-331"/>
+        </scene>
+        <!--Subjects-->
+        <scene sceneID="eeE-oT-p1o">
+            <objects>
+                <navigationController id="eD9-MM-3KQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Subjects" image="book.closed.fill" catalog="system" id="jM7-ZU-Nd8"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="l39-mh-ZFn">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYv-eF-BZS" kind="relationship" relationship="rootViewController" id="JLU-MU-BDv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xBE-1t-cn6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-486" y="-331"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="dif-gG-qTe"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor"/>
     <resources>
+        <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
+        <image name="graduationcap.fill" catalog="system" width="128" height="108"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
