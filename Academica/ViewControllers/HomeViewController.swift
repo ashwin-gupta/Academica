@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var wamLabel: UILabel!
 
     @IBOutlet weak var unitTableView: UITableView!
-    
+
     
     
     weak var databaseController: DatabaseProtocol?
