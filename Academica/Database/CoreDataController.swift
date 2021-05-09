@@ -169,7 +169,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
             
             // Sort by name
-            let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            let nameSortDescriptor = NSSortDescriptor(key: "year", ascending: false)
             fetchRequest.sortDescriptors = [nameSortDescriptor]
             
             // Initialize Results Controller
@@ -189,6 +189,8 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if allSubjectsFetchedResultsController?.fetchedObjects != nil {
             subjects = (allSubjectsFetchedResultsController?.fetchedObjects)!
         }
+        
+        print(subjects)
         
         return subjects
         
@@ -224,10 +226,10 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return subjects
     }
     
-    
     func createDefaultEntries() {
+        let _ = addSubject(name: "IBL2019", code: "IBL2019", grade: "HD", points: 6, score: 80, year: 2019)
+        let _ = addSubject(name: "IBL2020", code: "IBL2020", grade: "D", points: 6, score: 70, year: 2020)
+        let _ = addSubject(name: "IBL2021", code: "IBL2021", grade: "C", points: 6, score: 60, year: 2021)
     
     }
-    
-    
 }

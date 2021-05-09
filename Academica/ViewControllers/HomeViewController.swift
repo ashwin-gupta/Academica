@@ -57,8 +57,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.unitTableView.delegate = self
         self.unitTableView.dataSource = self
-        
-
 
     }
     
@@ -76,15 +74,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Table View Data Source Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return units.count
+        if units.count < 4 {
+            return units.count
+        } else {
+            return 4
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
         
+        
             let subject = units[indexPath.row]
             cell.gradeLabel.text = subject.grade
-            cell.scoreLabel.text = String(subject.score)
+            cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
             cell.creditPoints.text = subject.name
             
