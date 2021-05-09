@@ -40,10 +40,6 @@ class UnitViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
-        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "melon")
-
-        
     }
     
     // Sets the details of the pre-existing subject
@@ -54,8 +50,8 @@ class UnitViewController: UIViewController {
         nameTextField.text = oldSubject.name
         unitCodeInput.text = oldSubject.code
         yearInput.text = String(oldSubject.year)
-        scoreInput.text = String(oldSubject.score)
-        creditInput.text = String(oldSubject.points)
+        scoreInput.text = String(format: "%.0f", oldSubject.score)
+        creditInput.text = String(format: "%.0f", oldSubject.points)
         
         switch oldSubject.grade {
         case "D":
@@ -69,7 +65,7 @@ class UnitViewController: UIViewController {
         default:
             gradeControl.selectedSegmentIndex = 0
         }
-        gradeControlStyle()
+        
         
     }
     
