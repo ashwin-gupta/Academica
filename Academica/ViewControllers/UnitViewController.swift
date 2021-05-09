@@ -41,10 +41,9 @@ class UnitViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
-        navigationItem.backBarButtonItem?.tintColor = .label
-        
-        
+        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "melon")
 
+        
     }
     
     // Sets the details of the pre-existing subject
