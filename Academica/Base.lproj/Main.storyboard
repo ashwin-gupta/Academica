@@ -5,24 +5,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Raleway-Bold.ttf">
-            <string>Raleway-Bold</string>
-        </array>
-        <array key="Raleway-Regular.ttf">
-            <string>Raleway-Regular</string>
-        </array>
-        <array key="Raleway-SemiBold.ttf">
-            <string>Raleway-SemiBold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="29w-bf-k22">
             <objects>
                 <tabBarController id="HbP-Wd-SZT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="XNw-24-M0h"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rpp-SD-T2f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -30,41 +21,13 @@
                         <color key="selectedImageTintColor" name="Melon"/>
                     </tabBar>
                     <connections>
-                        <segue destination="doT-nb-lUp" kind="relationship" relationship="viewControllers" id="VPL-Yw-3u3"/>
+                        <segue destination="5IW-A0-T0h" kind="relationship" relationship="viewControllers" id="vT7-bU-7AG"/>
                         <segue destination="eD9-MM-3KQ" kind="relationship" relationship="viewControllers" id="e7o-lV-i4V"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ooe-iT-NdR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="629" y="-331"/>
-        </scene>
-        <!--Home-->
-        <scene sceneID="ovg-Eo-8Y2">
-            <objects>
-                <navigationController id="doT-nb-lUp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="graduationcap.fill" catalog="system" id="D6v-Hf-Rqv">
-                        <color key="badgeColor" name="Melon"/>
-                    </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3kb-iT-Plg">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" name="Melon"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
-                            <color key="textColor" name="Melon"/>
-                        </textAttributes>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="36"/>
-                            <color key="textColor" name="Melon"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="ggr-ug-WBH" kind="relationship" relationship="rootViewController" id="enQ-zd-z0Z"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Whs-ej-l20" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1741" y="-331"/>
         </scene>
         <!--Academica-->
         <scene sceneID="bDv-BV-yrd">
@@ -75,37 +38,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Tkn-EH-AaD">
-                                <rect key="frame" x="16" y="156" width="382" height="69.5"/>
+                                <rect key="frame" x="16" y="156" width="382" height="63"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MC8-UX-36i">
-                                        <rect key="frame" x="0.0" y="0.0" width="183" height="69.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="63"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="GPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5H-cB-Irg">
-                                                <rect key="frame" x="0.0" y="0.0" width="183" height="27.5"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="183" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" name="Melon 2"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-GV-6IM">
-                                                <rect key="frame" x="0.0" y="43.5" width="183" height="26"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="40" width="183" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4OO-ID-s6g">
-                                        <rect key="frame" x="199" y="0.0" width="183" height="69.5"/>
+                                        <rect key="frame" x="199" y="0.0" width="183" height="63"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ra5-IO-5g9">
-                                                <rect key="frame" x="0.0" y="0.0" width="183" height="27.5"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="183" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" name="Melon 2"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-oE-EQI">
-                                                <rect key="frame" x="0.0" y="43.5" width="183" height="26"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                <rect key="frame" x="0.0" y="40" width="183" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -113,56 +76,53 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grades" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-7h-6a6">
-                                <rect key="frame" x="16" y="257.5" width="382" height="23.5"/>
-                                <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-1E-82h">
-                                <rect key="frame" x="0.0" y="281" width="414" height="532"/>
+                            <tableView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-1E-82h">
+                                <rect key="frame" x="0.0" y="252" width="414" height="561"/>
                                 <color key="backgroundColor" name="UI"/>
                                 <color key="separatorColor" name="Foreground"/>
                                 <inset key="separatorInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" name="UI"/>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="9" reuseIdentifier="unitCell" rowHeight="111" id="O4H-yl-Agv" customClass="UnitTableViewCell" customModule="Academica" customModuleProvider="target">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="9" reuseIdentifier="unitCell" rowHeight="111" id="O4H-yl-Agv" customClass="UnitTableViewCell" customModule="Academica" customModuleProvider="target">
                                         <rect key="frame" x="20" y="49.5" width="374" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O4H-yl-Agv" id="8Ww-8e-muQ">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wEW-rG-Sls">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="wEW-rG-Sls">
                                                     <rect key="frame" x="28" y="19" width="318" height="73"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2vr-4p-3ef">
-                                                            <rect key="frame" x="0.0" y="0.0" width="318" height="32.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="318" height="28.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITCODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wV7-sA-vRO">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="159" height="28.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OS5-RU-y3S">
-                                                                    <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
+                                                                    <rect key="frame" x="159" y="0.0" width="159" height="28.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8Hi-D2-C77">
-                                                            <rect key="frame" x="0.0" y="40.5" width="318" height="32.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8Hi-D2-C77">
+                                                            <rect key="frame" x="0.0" y="44.5" width="318" height="28.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bF6-df-g90">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="243" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numeric" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGr-CE-hX1">
-                                                                    <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
+                                                                    <rect key="frame" x="251" y="4" width="67" height="20.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="67" id="3xy-Pc-hoa"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -181,37 +141,42 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="Foreground"/>
                                         <connections>
-                                            <outlet property="creditPoints" destination="OS5-RU-y3S" id="Fy6-3r-7W3"/>
-                                            <outlet property="gradeLabel" destination="bF6-df-g90" id="fvP-nE-Wer"/>
-                                            <outlet property="scoreLabel" destination="QGr-CE-hX1" id="v0M-Qe-B4Y"/>
-                                            <outlet property="unitLabel" destination="wV7-sA-vRO" id="zTo-Hw-ruC"/>
+                                            <outlet property="gradeLabel" destination="OS5-RU-y3S" id="QzR-W5-X4s"/>
+                                            <outlet property="nameLabel" destination="bF6-df-g90" id="bz7-eb-TBU"/>
+                                            <outlet property="scoreLabel" destination="QGr-CE-hX1" id="7E9-mi-dHB"/>
+                                            <outlet property="unitLabel" destination="wV7-sA-vRO" id="Ckh-7O-pNc"/>
                                             <segue destination="edv-1m-NH5" kind="show" identifier="oldSubjectSegue" id="dif-gG-qTe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grades" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-7h-6a6">
+                                <rect key="frame" x="20" y="251" width="378" height="25"/>
+                                <color key="backgroundColor" name="UI"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" name="Melon 2"/>
+                                <color key="highlightedColor" name="Foreground"/>
+                                <color key="shadowColor" name="Foreground"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LT0-UA-hxH"/>
                         <color key="backgroundColor" name="UI"/>
                         <constraints>
                             <constraint firstItem="hV2-7h-6a6" firstAttribute="top" secondItem="Tkn-EH-AaD" secondAttribute="bottom" constant="32" id="3Q7-Xz-GY2"/>
-                            <constraint firstItem="dDC-1E-82h" firstAttribute="top" secondItem="hV2-7h-6a6" secondAttribute="bottom" id="3xN-dy-gS1"/>
+                            <constraint firstItem="dDC-1E-82h" firstAttribute="top" secondItem="hV2-7h-6a6" secondAttribute="bottom" constant="-24" id="3xN-dy-gS1"/>
                             <constraint firstItem="Tkn-EH-AaD" firstAttribute="leading" secondItem="LT0-UA-hxH" secondAttribute="leading" constant="16" id="Csi-NM-eZ2"/>
                             <constraint firstItem="dDC-1E-82h" firstAttribute="bottom" secondItem="LT0-UA-hxH" secondAttribute="bottom" id="DQu-uT-VHv"/>
                             <constraint firstItem="Tkn-EH-AaD" firstAttribute="top" secondItem="LT0-UA-hxH" secondAttribute="top" constant="16" id="YBR-5i-VEs"/>
                             <constraint firstItem="dDC-1E-82h" firstAttribute="leading" secondItem="LT0-UA-hxH" secondAttribute="leading" id="ZVr-nM-iRv"/>
-                            <constraint firstItem="hV2-7h-6a6" firstAttribute="leading" secondItem="LT0-UA-hxH" secondAttribute="leading" constant="16" id="ggE-M5-thV"/>
                             <constraint firstItem="dDC-1E-82h" firstAttribute="trailing" secondItem="LT0-UA-hxH" secondAttribute="trailing" id="rMY-XY-8Ew"/>
                             <constraint firstItem="LT0-UA-hxH" firstAttribute="trailing" secondItem="Tkn-EH-AaD" secondAttribute="trailing" constant="16" id="rxD-YK-4GT"/>
+                            <constraint firstItem="hV2-7h-6a6" firstAttribute="leading" secondItem="LT0-UA-hxH" secondAttribute="leading" constant="20" id="tfM-85-NBK"/>
                             <constraint firstItem="LT0-UA-hxH" firstAttribute="trailing" secondItem="hV2-7h-6a6" secondAttribute="trailing" constant="16" id="tu9-Yg-snE"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" selectedImage="character.book.closed.fill" catalog="system" id="QO2-Vt-yIz">
-                        <color key="badgeColor" name="Melon"/>
-                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Academica" largeTitleDisplayMode="always" id="2xP-DW-uWv">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="AD2-yA-8lW">
-                            <color key="tintColor" name="Melon"/>
+                            <color key="tintColor" name="Melon 2"/>
                             <connections>
                                 <action selector="newSubject:" destination="ggr-ug-WBH" id="4LA-ht-R3B"/>
                                 <segue destination="edv-1m-NH5" kind="show" identifier="newSubjectSegue" id="qCu-73-KFP"/>
@@ -226,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmF-xY-fRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3068" y="-331"/>
+            <point key="canvasLocation" x="3976.811594202899" y="-331.47321428571428"/>
         </scene>
         <!--New Subject-->
         <scene sceneID="NmB-vU-Vpf">
@@ -281,7 +246,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="quX-C2-HDt">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="quX-C2-HDt">
                                 <rect key="frame" x="16" y="439" width="382" height="32"/>
                                 <segments>
                                     <segment title="HD"/>
@@ -290,7 +255,7 @@
                                     <segment title="P"/>
                                     <segment title="N"/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" name="Melon"/>
+                                <color key="selectedSegmentTintColor" name="Melon 2"/>
                             </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QIh-Rp-izp">
                                 <rect key="frame" x="16" y="184.5" width="382" height="34"/>
@@ -386,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MW0-Fw-Bb4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3957" y="-331"/>
+            <point key="canvasLocation" x="4866.666666666667" y="-331.47321428571428"/>
         </scene>
         <!--Subjects-->
         <scene sceneID="fgV-e6-ozE">
@@ -412,29 +377,29 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITCODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3c-7H-Xa7">
                                                             <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA5-4I-zBT">
                                                             <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
-                                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wJS-k8-a62">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wJS-k8-a62">
                                                     <rect key="frame" x="0.0" y="40.5" width="318" height="32.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkW-qH-Vl2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="159" height="32.5"/>
-                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="6" width="133" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numeric" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgA-kM-nnk">
-                                                            <rect key="frame" x="159" y="0.0" width="159" height="32.5"/>
-                                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                            <rect key="frame" x="133" y="6" width="185" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -451,10 +416,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="creditPoints" destination="oA5-4I-zBT" id="KM2-LV-F3Z"/>
-                                    <outlet property="gradeLabel" destination="NkW-qH-Vl2" id="zFD-iY-emQ"/>
-                                    <outlet property="scoreLabel" destination="HgA-kM-nnk" id="vGE-45-7WR"/>
-                                    <outlet property="unitLabel" destination="G3c-7H-Xa7" id="b1L-Hu-YwI"/>
+                                    <outlet property="gradeLabel" destination="oA5-4I-zBT" id="NXW-Up-I1X"/>
+                                    <outlet property="nameLabel" destination="NkW-qH-Vl2" id="T5N-ht-JEO"/>
+                                    <outlet property="scoreLabel" destination="HgA-kM-nnk" id="Dg3-1U-Eay"/>
+                                    <outlet property="unitLabel" destination="G3c-7H-Xa7" id="NoL-zJ-VaP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -463,7 +428,11 @@
                             <outlet property="delegate" destination="BYv-eF-BZS" id="gYA-re-uyJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Subjects" largeTitleDisplayMode="always" id="U88-o1-GsU"/>
+                    <navigationItem key="navigationItem" title="Subjects" largeTitleDisplayMode="always" id="U88-o1-GsU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WDx-Du-RlZ">
+                            <color key="tintColor" name="Melon 2"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Po6-5H-pe4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -477,6 +446,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="l39-mh-ZFn">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="Melon 2"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="Melon 2"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="BYv-eF-BZS" kind="relationship" relationship="rootViewController" id="JLU-MU-BDv"/>
@@ -486,6 +461,33 @@
             </objects>
             <point key="canvasLocation" x="-486" y="-331"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="8uK-A1-K0Z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5IW-A0-T0h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="graduationcap.fill" catalog="system" selectedImage="graduationcap.fill" id="QO2-Vt-yIz">
+                        <color key="badgeColor" name="Melon"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Z68-R4-e4a">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="Melon 2"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="Melon 2"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ggr-ug-WBH" kind="relationship" relationship="rootViewController" id="lm5-tu-4JH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zs-3q-DBF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2194" y="-331"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="dif-gG-qTe"/>
@@ -493,13 +495,15 @@
     <color key="tintColor" name="Melon"/>
     <resources>
         <image name="book.closed.fill" catalog="system" width="115" height="128"/>
-        <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="graduationcap.fill" catalog="system" width="128" height="108"/>
         <namedColor name="Foreground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Melon">
             <color red="0.84700000286102295" green="0.69499999284744263" blue="0.63899999856948853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Melon 2">
+            <color red="0.87567085030000003" green="0.68836778399999998" blue="0.62778431180000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="New Gray">
             <color red="0.92500001192092896" green="0.9179999828338623" blue="0.91399997472763062" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

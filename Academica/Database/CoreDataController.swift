@@ -32,14 +32,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         super.init()
-        
-        // If no heroes in the database we assume this is the first time the app runs
-        // Create a default student and initial subjects in this case
-        createDefaultEntries()
-        
-        if fetchAllSubjects().count == 0 {
-            createDefaultEntries()
-        }
     }
     
     // MARK: - Lazy Initialization of Default Student
@@ -97,12 +89,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         subject.year = year
         subject.score = score
         
-        do {
-            try addSubjectToStudent(student: defaultStudent, subject: subject)
-        } catch {
-            debugPrint("Unable to add subject to student")
-            
-        }
+        addSubjectToStudent(student: defaultStudent, subject: subject)
         
         return subject
     
@@ -226,10 +213,4 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return subjects
     }
     
-    func createDefaultEntries() {
-        let _ = addSubject(name: "IBL2019", code: "IBL2019", grade: "HD", points: 6, score: 80, year: 2019)
-        let _ = addSubject(name: "IBL2020", code: "IBL2020", grade: "D", points: 6, score: 70, year: 2020)
-        let _ = addSubject(name: "IBL2021", code: "IBL2021", grade: "C", points: 6, score: 60, year: 2021)
-    
-    }
 }

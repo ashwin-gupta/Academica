@@ -89,7 +89,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.gradeLabel.text = subject.grade
             cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
-            cell.creditPoints.text = subject.name
+            cell.nameLabel.text = subject.name
             
             monashWamCalculate()
             gpaCalculate()
