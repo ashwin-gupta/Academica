@@ -13,7 +13,7 @@ class UnitTableViewCell: UITableViewCell {
     
     @IBOutlet weak var unitLabel: UILabel!
     
-    @IBOutlet weak var creditPoints: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var gradeLabel: UILabel!
     

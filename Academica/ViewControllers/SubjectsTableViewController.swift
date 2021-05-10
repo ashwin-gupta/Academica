@@ -57,7 +57,10 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
     
     func onSubjectChange(change: DatabaseChange, subjects: [Subject]) {
         studentSubjects = subjects
-        sortSubjects(subjects: studentSubjects)
+        if !studentSubjects.isEmpty {
+            sortSubjects(subjects: studentSubjects)
+        }
+        
         tableView.reloadData()
     }
 
@@ -66,9 +69,9 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         
         let subject = orderedSubjects[indexPath.section][indexPath.row]
             cell.gradeLabel.text = subject.grade
-            cell.scoreLabel.text = String(subject.score)
+            cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
-            cell.creditPoints.text = subject.name
+            cell.nameLabel.text = subject.name
             return cell
     }
     
@@ -87,6 +90,25 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
             }
         }
         orderedSubjects.append(yearArray)
+    }
+    
+    // Allows the deletion of advertisements my swiping. Also gives the user feedback on whether they want to delete the advert
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let unit = orderedSubjects[indexPath.section][indexPath.row]
+            // Delete the row from the data source
+            let alertController = UIAlertController(title: "Delete?", message: "Are you sure you want to delete this subject? This cannot be reversed.", preferredStyle: UIAlertController.Style.alert)
+            
+            
+            alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (_) in
+                // Removing the advertisement from teh user
+                self.databaseController?.deleteSubject(subject: unit)
+                self.tableView.reloadData()
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+
+        }
     }
 
     /*
