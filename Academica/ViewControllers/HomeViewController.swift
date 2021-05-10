@@ -22,18 +22,16 @@ extension UIViewController {
     }
 }
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener {
-    
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+
 
     var units: [Subject] = []
     let firstYearUnit: String = "XXX1"
-    
-    @IBOutlet weak var gpaLabel: UILabel!
-    
-    @IBOutlet weak var wamLabel: UILabel!
 
     @IBOutlet weak var unitTableView: UITableView!
-
+    @IBOutlet weak var calcCollectionView: UICollectionView!
+    @IBOutlet weak var gradesLabel: UILabel!
     
     
     weak var databaseController: DatabaseProtocol?
@@ -41,6 +39,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var creditSum: Double = 0
     var gpaSum: Double = 0
     var wamCreditSum: Double = 0
+    
+    // Setting the inests of the collection view controller
+    private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     
     @IBAction func newSubject(_ sender: Any) {
         
@@ -57,7 +58,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.unitTableView.delegate = self
         self.unitTableView.dataSource = self
-
+        
+        self.calcCollectionView.delegate = self
+        self.calcCollectionView.dataSource = self
+        
     }
     
     
@@ -65,6 +69,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         unitTableView.reloadData()
+        calcCollectionView.reloadData()
+        
+        if !units.isEmpty {
+            gradesLabel.isHidden = false
+        } else {
+            gradesLabel.isHidden = true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,9 +101,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
             cell.nameLabel.text = subject.name
-            
-            monashWamCalculate()
-            gpaCalculate()
+
             return cell
 
     }
@@ -107,7 +116,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if editingStyle == .delete {
             let unit = units[indexPath.row]
             // Delete the row from the data source
-            let alertController = UIAlertController(title: "Delete?", message: "Are you sure you want to delete this subject? This cannot be reversed.", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "Delete?", message: "Are you sure you want to delete this subject?\n\n This cannot be reversed.", preferredStyle: UIAlertController.Style.alert)
             
             
             alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (_) in
@@ -122,6 +131,67 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
+    // MARK: - Collection View Functions
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if units.isEmpty {
+            return 1
+        } else {
+            return 2
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calcCell", for: indexPath) as! CalculationCollectionViewCell
+        
+        cell.layer.cornerRadius = 12
+        
+        if units.isEmpty {
+            cell.gpaWamLabel.text = "No Subjects!"
+            cell.calcLabel.text = "Click + to add a subject!"
+            
+        } else {
+            
+            // Setting GPA and WAM Labels
+            switch indexPath.row {
+            case 0:
+                cell.gpaWamLabel.text = "GPA"
+                cell.calcLabel.text = gpa()
+            
+            case 1:
+                cell.gpaWamLabel.text = "WAM"
+                cell.calcLabel.text = monashWam()
+            
+            default:
+                cell.gpaWamLabel.text = "GPA"
+                cell.calcLabel.text = gpa()
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var itemsPerRow: CGFloat = 1
+        var paddingSpace: CGFloat
+        if units.isEmpty {
+            itemsPerRow = 1
+            paddingSpace = 0
+        } else {
+            itemsPerRow = 2
+            paddingSpace = sectionInsets.left * (itemsPerRow)
+        }
+        // Setting the sizing of the collectionView
+        
+        let availableWidth = collectionView.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        let heightPerItem = collectionView.frame.height
+        return CGSize(width: widthPerItem, height: heightPerItem)
+    }
+        
+
     // MARK: - Database Listeners
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject]) {
@@ -133,10 +203,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         unitTableView.reloadData()
     }
     
-    func wamCalculate() {
+    func wamCalculate() -> String {
         var marksSum: Double = 0
         gpaSum = 0
         creditSum = 0
+        
         for subject in units {
             marksSum = (subject.score * subject.points) + marksSum
             creditSum = subject.points + creditSum
@@ -144,11 +215,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let wam = String(format: "%.4f", marksSum/creditSum)
-        
-        wamLabel.text = wam
+        return wam
     }
     
-    func gpaCalculate() {
+    func gpa() -> String {
+        
         for subject in units {
             
             creditSum = subject.points + creditSum
@@ -166,20 +237,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             default:
                 gpaSum = (subject.points * 4) + gpaSum
             }
-            
-            let gpa = String(format: "%.4f", gpaSum/creditSum)
-            gpaLabel.text = gpa
-            
         }
+        
+        let gpaString = String(format: "%.4f", gpaSum/creditSum)
+        return gpaString
     }
     
-    func monashWamCalculate() {
+    func monashWam() -> String {
         var marksSum: Double = 0
         gpaSum = 0
         creditSum = 0
         wamCreditSum = 0
+        
         for subject in units {
-            if subject.code?.firstIndex(of: "1") == firstYearUnit.firstIndex(of:"1") {
+            if subject.code?.firstIndex(of: "1") == firstYearUnit.firstIndex(of: "1") {
                 marksSum = (subject.score * subject.points)/2 + marksSum
                 wamCreditSum = subject.points/2 + wamCreditSum
                 
@@ -187,13 +258,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 marksSum = (subject.score * subject.points) + marksSum
                 wamCreditSum = subject.points + wamCreditSum
             }
+        }
         
         let wam = String(format: "%.4f", marksSum/wamCreditSum)
-        
-        wamLabel.text = wam
-    }
-    
-        
+        return wam
     }
     
     // MARK: - Navigation
@@ -202,15 +270,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "newSubjectSegue" {
             let destination = segue.destination as! UnitViewController
-            
             destination.newSubject = true
+            
         } else if segue.identifier == "oldSubjectSegue" {
             let destination = segue.destination as! UnitViewController
             destination.subject = units[unitTableView.indexPathForSelectedRow!.row]
             
         }
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
     
 

@@ -42,6 +42,7 @@
 		83297FC0250B3E7900EC25FD /* UnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83297FBD250B3E7900EC25FD /* UnitViewController.swift */; };
 		83297FC1250B3E7900EC25FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83297FBE250B3E7900EC25FD /* HomeViewController.swift */; };
 		83297FC2250B3E7900EC25FD /* UnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83297FBF250B3E7900EC25FD /* UnitTableViewCell.swift */; };
+		834C941626496AEB0092771A /* CalculationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		83297FBD250B3E7900EC25FD /* UnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitViewController.swift; sourceTree = "<group>"; };
 		83297FBE250B3E7900EC25FD /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		83297FBF250B3E7900EC25FD /* UnitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTableViewCell.swift; sourceTree = "<group>"; };
+		834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				83297FBF250B3E7900EC25FD /* UnitTableViewCell.swift */,
 				83297FBD250B3E7900EC25FD /* UnitViewController.swift */,
 				832748402608BFF900D8E547 /* SubjectsTableViewController.swift */,
+				834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				832748412608BFF900D8E547 /* SubjectsTableViewController.swift in Sources */,
 				83297FC2250B3E7900EC25FD /* UnitTableViewCell.swift in Sources */,
 				830B6B31251A1CD400BD53E4 /* Student+CoreDataProperties.swift in Sources */,
+				834C941626496AEB0092771A /* CalculationCollectionViewCell.swift in Sources */,
 				830B6B29251A171E00BD53E4 /* MulticastDelegate.swift in Sources */,
 				830B6B30251A1CD400BD53E4 /* Student+CoreDataClass.swift in Sources */,
 				830B6B33251A1CD400BD53E4 /* Subject+CoreDataProperties.swift in Sources */,
