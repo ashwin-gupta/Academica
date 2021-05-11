@@ -32,7 +32,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         super.init()
-        createDefaultEntries()
     }
     
     // MARK: - Lazy Initialization of Default Student
@@ -178,7 +177,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             subjects = (allSubjectsFetchedResultsController?.fetchedObjects)!
         }
         
-        print(subjects)
+        debugPrint(subjects)
         
         return subjects
         
@@ -201,7 +200,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 try studentSubjectsFetchedResultsController?.performFetch()
                 
             } catch {
-                print("Fetch Request Failed: \(error)")
+                debugPrint("Fetch Request Failed: \(error)")
             }
         }
         
@@ -212,11 +211,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         return subjects
-    }
-    
-    func createDefaultEntries() {
-        let _ = addSubject(name: "iOS App Development", code: "FIT3178", grade: "D", points: 6, score: 70, year: 2020)
-        let _ = addSubject(name: "Software Security", code: "FIT3173", grade: "D", points: 6, score: 69, year: 2020)
     }
     
 }

@@ -239,7 +239,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
-        let gpaString = String(format: "%.4f", gpaSum/creditSum)
+        let gpaString = String(format: "%.3f", gpaSum/creditSum)
         return gpaString
     }
     
@@ -260,7 +260,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
-        let wam = String(format: "%.4f", marksSum/wamCreditSum)
+        let wam = String(format: "%.3f", marksSum/wamCreditSum)
         return wam
     }
     

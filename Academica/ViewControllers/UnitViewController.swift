@@ -40,6 +40,10 @@ class UnitViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
+//        gradeControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
+        gradeControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
     }
     
     // Sets the details of the pre-existing subject
