@@ -22,33 +22,29 @@ extension UIViewController {
     }
 }
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
 
 
+    // Setting the inests of the collection view controller
+    private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
 
-    var units: [Subject] = []
     let firstYearUnit: String = "XXX1"
+    let defaults = UserDefaults.standard
+    
 
     @IBOutlet weak var unitTableView: UITableView!
     @IBOutlet weak var calcCollectionView: UICollectionView!
     @IBOutlet weak var gradesLabel: UILabel!
     
-    
     weak var databaseController: DatabaseProtocol?
+    
     var listenerType: ListenerType = .all
     var creditSum: Double = 0
     var gpaSum: Double = 0
     var wamCreditSum: Double = 0
+    var units: [Subject] = []
     
-    // Setting the inests of the collection view controller
-    private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-    
-    @IBAction func newSubject(_ sender: Any) {
-        
-        
-        
-    }
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +57,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.calcCollectionView.delegate = self
         self.calcCollectionView.dataSource = self
+        
+        let favUnits = defaults.array(forKey: "favUnits")
         
     }
     
@@ -128,6 +126,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.present(alertController, animated: true, completion: nil)
 
         }
+        
+    
     }
     
 
@@ -232,7 +232,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             case "P":
                 gpaSum = (subject.points * 1) + gpaSum
             case "N":
-                gpaSum = (subject.points * 0) + gpaSum
+                gpaSum = (subject.points * 0.3) + gpaSum
                 
             default:
                 gpaSum = (subject.points * 4) + gpaSum

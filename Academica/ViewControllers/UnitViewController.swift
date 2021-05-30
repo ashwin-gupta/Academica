@@ -27,7 +27,7 @@ class UnitViewController: UIViewController {
     var newSubject: Bool = false
     var subject: Subject?
     
-    let grades = ["HD", "D", "C", "P", "N"]
+    let grades = ["HD", "D", "C", "P", "N", "F"]
     
     
 
@@ -66,6 +66,8 @@ class UnitViewController: UIViewController {
             gradeControl.selectedSegmentIndex = 3
         case "N":
             gradeControl.selectedSegmentIndex = 4
+        case "F":
+            gradeControl.selectedSegmentIndex = 5
         default:
             gradeControl.selectedSegmentIndex = 0
         }

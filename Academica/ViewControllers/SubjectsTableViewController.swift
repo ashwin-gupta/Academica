@@ -9,10 +9,18 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
+    
+    
+    
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
     var orderedSubjects: [[Subject]] = []
+    var favSubjects: [Subject] = []
+    
     weak var databaseController: DatabaseProtocol?
+    
+    let defaults = UserDefaults.standard
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,18 +53,9 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         } else {
             return orderedSubjects.count
         }
-        
-        
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return orderedSubjects[section].count
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(orderedSubjects[section][0].year)
-    }
+
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject]) {
         // Do nothing
@@ -72,11 +71,11 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         
         tableView.reloadData()
     }
+    
+    //MARK: - Table View Functions
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
-        let detailCell = tableView.dequeueReusableCell(withIdentifier: "detailCell")
-        
         
         let subject = orderedSubjects[indexPath.section][indexPath.row]
             cell.gradeLabel.text = subject.grade
@@ -86,22 +85,16 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
             return cell
     }
     
-    func sortSubjects(subjects: [Subject]) {
-        // Setting the starting year to the first year in the array
-        var currentYear: Int16 = subjects[0].year
-        var yearArray: [Subject] = []
-        for unit in subjects {
-            if unit.year != currentYear {
-                currentYear = unit.year
-                orderedSubjects.append(yearArray)
-                yearArray = [unit]
-                
-            } else {
-                yearArray.append(unit)
-            }
-        }
-        orderedSubjects.append(yearArray)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return orderedSubjects[section].count
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return String(orderedSubjects[section][0].year)
+    }
+    
+
     
     // Allows the deletion of advertisements my swiping. Also gives the user feedback on whether they want to delete the advert
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -121,6 +114,41 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
 
         }
     }
+    
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+            print("Favourite Action Tapped")
+            
+            
+            
+        }
+        favAction.backgroundColor = .systemYellow
+        
+        
+        let configuration = UISwipeActionsConfiguration(actions: [favAction])
+        
+        return configuration
+        
+    }
+    
+    // MARK: - Sorting Algorithm for Subjects
+    func sortSubjects(subjects: [Subject]) {
+        // Setting the starting year to the first year in the array
+        var currentYear: Int16 = subjects[0].year
+        var yearArray: [Subject] = []
+        for unit in subjects {
+            if unit.year != currentYear {
+                currentYear = unit.year
+                orderedSubjects.append(yearArray)
+                yearArray = [unit]
+                
+            } else {
+                yearArray.append(unit)
+            }
+        }
+        orderedSubjects.append(yearArray)
+    }
 
     
     // MARK: - Navigation
@@ -130,6 +158,11 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         if segue.identifier == "subjectSegue" {
             let destination = segue.destination as! UnitViewController
             destination.subject = orderedSubjects[tableView.indexPathForSelectedRow!.section][tableView.indexPathForSelectedRow!.row]
+            
+        } else if segue.identifier == "newUnitSegue" {
+            let destination = segue.destination as! UnitViewController
+            destination.newSubject = true
+            
         }
     }
     
