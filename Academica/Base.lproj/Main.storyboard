@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HbP-Wd-SZT">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -521,13 +522,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2qZ-k6-QWM"/>
+        <segue reference="dif-gG-qTe"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="Navy"/>
     <resources>
         <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="graduationcap.fill" catalog="system" width="128" height="108"/>
-        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
         <namedColor name="Foreground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
