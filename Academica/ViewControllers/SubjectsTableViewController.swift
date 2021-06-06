@@ -9,17 +9,17 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
-    
-    
+
     
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
     var orderedSubjects: [[Subject]] = []
-    var favSubjects: [Subject] = []
+    var favUnits: [Subject] = []
     
     weak var databaseController: DatabaseProtocol?
     
     let defaults = UserDefaults.standard
+    let FAVOURITE_LIST = "Favourite List"
     
 
     override func viewDidLoad() {
@@ -72,6 +72,12 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         tableView.reloadData()
     }
     
+    func onFavouritesChange(change: DatabaseChange, favSubjects: [Subject]) {
+        favUnits = favSubjects
+        tableView.reloadData()
+    }
+    
+    
     //MARK: - Table View Functions
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,20 +117,47 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
             }))
             alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
+            
 
         }
     }
     
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+        let unit = orderedSubjects[indexPath.section][indexPath.row]
+        
+        var favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
             print("Favourite Action Tapped")
-            
-            
+            debugPrint("Added to favourites")
             
         }
-        favAction.backgroundColor = .systemYellow
         
+        switch unit.isFavourite {
+        case true:
+             favAction = UIContextualAction(style: .destructive, title: "Unfavourite") { (action, view, handler) in
+                print("Favourite Action Tapped")
+                unit.isFavourite = false
+                debugPrint("Added to favourites")
+            }
+        case false:
+            favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+                print("Favourite Action Tapped")
+                unit.isFavourite = true
+                debugPrint("Added to favourites")
+                
+            }
+            favAction.backgroundColor = .systemYellow
+            
+        
+        default:
+            favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+                print("Favourite Action Tapped")
+                unit.isFavourite = true
+                debugPrint("Added to favourites")
+                
+            }
+            favAction.backgroundColor = .systemYellow
+        }
         
         let configuration = UISwipeActionsConfiguration(actions: [favAction])
         

@@ -24,7 +24,6 @@ extension UIViewController {
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
 
-
     // Setting the inests of the collection view controller
     private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
 
@@ -43,6 +42,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var gpaSum: Double = 0
     var wamCreditSum: Double = 0
     var units: [Subject] = []
+    var favUnits: [Subject] = []
     
 
     
@@ -58,7 +58,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.calcCollectionView.delegate = self
         self.calcCollectionView.dataSource = self
         
-        let favUnits = defaults.array(forKey: "favUnits")
         
     }
     
@@ -83,30 +82,41 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Table View Data Source Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if units.count < 4 {
-            return units.count
+        if favUnits.isEmpty {
+            return 1
         } else {
-            return 4
+            return favUnits.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
+        let infoCell = tableView.dequeueReusableCell(withIdentifier: "infoCell") as! HomeInfoTableViewCell
         
-        
-            let subject = units[indexPath.row]
+        if favUnits.isEmpty {
+            infoCell.infoLabel?.text = "Add favourite subjects by swiping right on a subject in the subject tab!"
+            infoCell.selectionStyle = .none
+            return infoCell
+            
+        } else {
+            let subject = favUnits[indexPath.row]
             cell.gradeLabel.text = subject.grade
             cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
             cell.nameLabel.text = subject.name
-
+            
             return cell
 
+        }
     }
     
     // MARK: - Table View Functions
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if favUnits.isEmpty {
+            return false
+        } else {
+            return true
+        }
     }
     
     // Allows the deletion of advertisements my swiping. Also gives the user feedback on whether they want to delete the advert
@@ -200,8 +210,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func onSubjectChange(change: DatabaseChange, subjects: [Subject]) {
         units = subjects
+        favUnits = getFavouriteSubjects(allUnits: units)
         unitTableView.reloadData()
     }
+    
+    func getFavouriteSubjects(allUnits: [Subject]) -> [Subject] {
+        var favourites: [Subject] = []
+        
+        for unit in allUnits {
+            if unit.isFavourite {
+                favourites.append(unit)
+            }
+        }
+        
+        return favourites
+        
+    }
+    
     
     func wamCalculate() -> String {
         var marksSum: Double = 0
@@ -274,7 +299,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         } else if segue.identifier == "oldSubjectSegue" {
             let destination = segue.destination as! UnitViewController
-            destination.subject = units[unitTableView.indexPathForSelectedRow!.row]
+            destination.subject = favUnits[unitTableView.indexPathForSelectedRow!.row]
             
         }
     }

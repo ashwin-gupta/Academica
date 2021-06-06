@@ -11,7 +11,6 @@ import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
 
-
     
     let DEFAULT_STUDENT = "Default Student"
     var listeners = MulticastDelegate<DatabaseListener>()
@@ -20,6 +19,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // Fetched Results Controllers
     var allSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
     var studentSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
+    var favSubjectFetchedResultsController: NSFetchedResultsController<Subject>?
     
     override init() {
         // Load the Core Data Stack
@@ -55,6 +55,8 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return students.first!
     }()
     
+
+    
     
     func saveContext() {
         if persistentContainer.viewContext.hasChanges {
@@ -80,7 +82,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
 
-    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16) -> Subject {
+    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool) -> Subject {
         let subject = NSEntityDescription.insertNewObject(forEntityName: "Subject", into: persistentContainer.viewContext) as! Subject
         subject.name = name
         subject.code = code
@@ -88,8 +90,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         subject.points = points
         subject.year = year
         subject.score = score
+        subject.isFavourite = false
         
-        addSubjectToStudent(student: defaultStudent, subject: subject)
+        debugPrint(addSubjectToStudent(student: defaultStudent, subject: subject))
         
         return subject
     
@@ -111,6 +114,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     func removeSubjectFromStudent(subject: Subject, student: Student) {
         student.removeFromSubjects(subject)
+        
     }
     
     func addListener(listener: DatabaseListener) {
@@ -123,6 +127,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .subjects || listener.listenerType == .all {
             listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
         }
+        
     }
     
     func removeListener(listener: DatabaseListener) {
