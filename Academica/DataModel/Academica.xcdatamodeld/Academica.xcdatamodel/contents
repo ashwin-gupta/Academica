@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Student" representedClassName="Student" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="subjects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subject" inverseName="student" inverseEntity="Subject"/>
@@ -7,6 +7,7 @@
     <entity name="Subject" representedClassName="Subject" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String"/>
         <attribute name="grade" optional="YES" attributeType="String"/>
+        <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="points" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -14,7 +15,7 @@
         <relationship name="student" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="subjects" inverseEntity="Student"/>
     </entity>
     <elements>
-        <element name="Student" positionX="-18" positionY="54" width="128" height="28"/>
-        <element name="Subject" positionX="-45" positionY="0" width="128" height="148"/>
+        <element name="Student" positionX="-237.4649658203125" positionY="48.15634155273438" width="128" height="73"/>
+        <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="163"/>
     </elements>
 </model>

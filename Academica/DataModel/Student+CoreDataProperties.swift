@@ -2,8 +2,8 @@
 //  Student+CoreDataProperties.swift
 //  Academica
 //
-//  Created by Ashwin Gupta on 22/9/20.
-//  Copyright © 2020 Ashwin Gupta. All rights reserved.
+//  Created by Ashwin Gupta on 6/6/21.
+//  Copyright © 2021 Ashwin Gupta. All rights reserved.
 //
 //
 
@@ -36,5 +36,9 @@ extension Student {
 
     @objc(removeSubjects:)
     @NSManaged public func removeFromSubjects(_ values: NSSet)
+
+}
+
+extension Student : Identifiable {
 
 }

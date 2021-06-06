@@ -109,10 +109,11 @@ class UnitViewController: UIViewController {
             let year = Int16(yearInput.text!)
             let grade = grades[gradeControl.selectedSegmentIndex]
             print(newSubject)
+            let favourite = false
             
             if newSubject {
 
-                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!)
+                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!, favourite: favourite)
                 
             } else {
                 subject?.name = name

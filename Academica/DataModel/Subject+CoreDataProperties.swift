@@ -2,8 +2,8 @@
 //  Subject+CoreDataProperties.swift
 //  Academica
 //
-//  Created by Ashwin Gupta on 22/9/20.
-//  Copyright © 2020 Ashwin Gupta. All rights reserved.
+//  Created by Ashwin Gupta on 6/6/21.
+//  Copyright © 2021 Ashwin Gupta. All rights reserved.
 //
 //
 
@@ -17,12 +17,13 @@ extension Subject {
         return NSFetchRequest<Subject>(entityName: "Subject")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var year: Int16
-    @NSManaged public var score: Double
-    @NSManaged public var grade: String?
     @NSManaged public var code: String?
+    @NSManaged public var grade: String?
+    @NSManaged public var name: String?
     @NSManaged public var points: Double
+    @NSManaged public var score: Double
+    @NSManaged public var year: Int16
+    @NSManaged public var isFavourite: Bool
     @NSManaged public var student: NSSet?
 
 }
@@ -41,5 +42,9 @@ extension Subject {
 
     @objc(removeStudent:)
     @NSManaged public func removeFromStudent(_ values: NSSet)
+
+}
+
+extension Subject : Identifiable {
 
 }
