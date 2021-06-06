@@ -15,6 +15,7 @@ enum DatabaseChange {
 enum ListenerType {
     case students
     case subjects
+    case university
     case all
 }
 
@@ -23,6 +24,7 @@ protocol DatabaseListener: AnyObject {
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject])
     func onSubjectChange(change: DatabaseChange, subjects: [Subject])
+    func onUniversityChange(change: DatabaseChange, universities: [University])
     
     
 }
@@ -47,4 +49,7 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     
     func removeListener(listener: DatabaseListener)
+    
+    func addUniversity(name: String, grades: [String], weights: [Double])
+    
 }

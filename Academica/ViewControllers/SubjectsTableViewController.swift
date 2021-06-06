@@ -9,7 +9,6 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
-
     
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
@@ -72,9 +71,8 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         tableView.reloadData()
     }
     
-    func onFavouritesChange(change: DatabaseChange, favSubjects: [Subject]) {
-        favUnits = favSubjects
-        tableView.reloadData()
+    func onUniversityChange(change: DatabaseChange, universities: [University]) {
+        // Do nothing
     }
     
     

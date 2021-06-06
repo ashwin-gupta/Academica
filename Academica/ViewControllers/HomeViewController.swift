@@ -216,6 +216,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         unitTableView.reloadData()
     }
     
+    func onUniversityChange(change: DatabaseChange, universities: [University]) {
+        //Do nothing
+    }
+    
     func getFavouriteSubjects(allUnits: [Subject]) -> [Subject] {
         var favourites: [Subject] = []
         
