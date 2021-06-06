@@ -11,6 +11,7 @@ import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
     
+    
     let DEFAULT_STUDENT = "Default Student"
     var listeners = MulticastDelegate<DatabaseListener>()
     var persistentContainer: NSPersistentContainer
@@ -18,7 +19,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // Fetched Results Controllers
     var allSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
     var studentSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
-    var allUniversitiesFetchedResultsController: NSFetchedResultsController<University>?
     
     override init() {
         // Load the Core Data Stack
@@ -32,7 +32,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         super.init()
         
-        setUniversityPresets()
     }
     
     // MARK: - Lazy Initialization of Default Student
@@ -100,7 +99,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     
-    
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool {
         student.addToSubjects(subject)
         return true
@@ -120,14 +118,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
     }
     
-    func addUniversity(name: String, grades: [String], weights: [Double]) {
-        let university = NSEntityDescription.insertNewObject(forEntityName: "University", into: persistentContainer.viewContext) as! University
-        university.name = name
-        university.grades = grades
-        university.weights = weights
-        
-    }
-    
     
     func addListener(listener: DatabaseListener) {
         listeners.addDelegate(listener)
@@ -137,10 +127,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         if listener.listenerType == .subjects || listener.listenerType == .all {
-            listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
-        }
-        
-        if listener.listenerType == .university || listener.listenerType == .all {
             listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
         }
     }
@@ -165,12 +151,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             listeners.invoke { (listener) in
                 if listener.listenerType == .students || listener.listenerType == .all {
                     listener.onStudentChange(change: .update, studentSubjects: fetchStudentSubjects())
-                }
-            }
-        } else if controller == allUniversitiesFetchedResultsController {
-            listeners.invoke { (listener) in
-                if listener.listenerType == .university || listener.listenerType == .all {
-                    listener.onUniversityChange(change: .update, universities: fetchAllUniversities())
                 }
             }
         }
@@ -240,58 +220,4 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         return subjects
     }
-    
-    
-    func fetchAllUniversities() -> [University] {
-        // if results controller not currenty initialised
-        if allUniversitiesFetchedResultsController == nil {
-            let fetchRequest: NSFetchRequest<University> = University.fetchRequest()
-            
-            // Sort by name
-            let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-            fetchRequest.sortDescriptors = [nameSortDescriptor]
-            
-            // Initialize Results Controller
-            allUniversitiesFetchedResultsController = NSFetchedResultsController<University>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-            
-            // Set this class to be the results delegate
-            allUniversitiesFetchedResultsController?.delegate = self
-            
-            do {
-                try allUniversitiesFetchedResultsController?.performFetch()
-            } catch {
-                print("Fetch Request Failed: \(error)")
-            }
-        }
-        
-        var universities = [University]()
-        if allUniversitiesFetchedResultsController?.fetchedObjects != nil {
-            universities = (allUniversitiesFetchedResultsController?.fetchedObjects)!
-        }
-        
-        debugPrint(universities)
-        
-        return universities
-        
-    }
-    
-    func setUniversityPresets() {
-        addUniversity(name: "Monash University", grades: ["High Distinction", "Distinction", "Credit", "Pass", "Near Pass", "Fail", "Hurdle Fail", "Withdrawn Fail"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        //addUniversity(name: "Melbourne University", grades: ["H1", "H2A", "H2B", "H3", "P", "N", "NH", "S"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        addUniversity(name: "La Trobe University", grades: ["High Distinction", "Distinction", "Credit", "Pass", "Near Pass", "Fail", "Hurdle Fail", "Withdrawn Fail"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        addUniversity(name: "Deakin University", grades: ["HD", "D", "C", "P", "N", "F", "PC", "XN", "WN"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        addUniversity(name: "Victoria University", grades: ["High Distinction", "Distinction", "Credit", "Pass", "Near Pass", "Fail", "Hurdle Fail", "Withdrawn Fail"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        addUniversity(name: "RMIT University", grades: ["High Distinction", "Distinction", "Credit", "Pass", "Near Pass", "Fail", "Hurdle Fail", "Withdrawn Fail"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-        addUniversity(name: "Swinburne University", grades: ["High Distinction", "Distinction", "Credit", "Pass", "Near Pass", "Fail", "Hurdle Fail", "Withdrawn Fail"], weights: [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0])
-        
-    }
-    
-    
-    
 }

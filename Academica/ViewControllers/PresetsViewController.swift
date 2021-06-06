@@ -8,11 +8,9 @@
 
 import UIKit
 
-class PresetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, DatabaseListener {
-    
-    var listenerType: ListenerType = .all
+class PresetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource  {
+   
 
-    var universities: [University] = []
 
     @IBOutlet weak var uniCollectionView: UICollectionView!
     @IBOutlet weak var weightingTableView: UITableView!
@@ -52,8 +50,6 @@ class PresetsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = uniCollectionView.dequeueReusableCell(withReuseIdentifier: "uniCell", for: indexPath) as! PresetsCollectionViewCell
         
-        cell.universityLabel.text = universities[indexPath.row].name
-        
         return cell
     }
     
@@ -64,14 +60,7 @@ class PresetsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func onSubjectChange(change: DatabaseChange, subjects: [Subject]) {
         // Do nothing
     }
-    
-    func onUniversityChange(change: DatabaseChange, universities: [University]) {
-        self.universities = universities
-        print(universities)
-        uniCollectionView.reloadData()
-        weightingTableView.reloadData()
-    }
-    
+
 
     /*
     // MARK: - Navigation

@@ -71,9 +71,6 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         tableView.reloadData()
     }
     
-    func onUniversityChange(change: DatabaseChange, universities: [University]) {
-        // Do nothing
-    }
     
     
     //MARK: - Table View Functions
