@@ -96,10 +96,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if favUnits.isEmpty {
             infoCell.infoLabel?.text = "Add favourite subjects by swiping right on a subject in the subject tab!"
             infoCell.selectionStyle = .none
+            tableView.isUserInteractionEnabled = false
             return infoCell
             
         } else {
             let subject = favUnits[indexPath.row]
+            tableView.isUserInteractionEnabled = true
             cell.gradeLabel.text = subject.grade
             cell.scoreLabel.text = String(format: "%.0f", subject.score)
             cell.unitLabel.text = subject.code
