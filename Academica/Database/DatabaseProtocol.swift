@@ -23,7 +23,7 @@ protocol DatabaseListener: AnyObject {
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject])
     func onSubjectChange(change: DatabaseChange, subjects: [Subject])
-    
+
     
 }
 
@@ -47,4 +47,6 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     
     func removeListener(listener: DatabaseListener)
+
+    
 }

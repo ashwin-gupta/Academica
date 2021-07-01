@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
-
+    
     
     let DEFAULT_STUDENT = "Default Student"
     var listeners = MulticastDelegate<DatabaseListener>()
@@ -19,7 +19,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // Fetched Results Controllers
     var allSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
     var studentSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
-    var favSubjectFetchedResultsController: NSFetchedResultsController<Subject>?
     
     override init() {
         // Load the Core Data Stack
@@ -32,6 +31,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         super.init()
+        
     }
     
     // MARK: - Lazy Initialization of Default Student
@@ -98,6 +98,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     }
     
+    
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool {
         student.addToSubjects(subject)
         return true
@@ -117,6 +118,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
     }
     
+    
     func addListener(listener: DatabaseListener) {
         listeners.addDelegate(listener)
         
@@ -127,8 +129,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .subjects || listener.listenerType == .all {
             listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
         }
-        
     }
+    
+
     
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
@@ -182,7 +185,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             subjects = (allSubjectsFetchedResultsController?.fetchedObjects)!
         }
         
-        debugPrint(subjects)
+//        debugPrint(subjects)
         
         return subjects
         
@@ -217,5 +220,4 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         return subjects
     }
-    
 }

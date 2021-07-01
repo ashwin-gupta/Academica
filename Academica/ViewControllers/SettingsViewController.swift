@@ -22,8 +22,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-        settingArray = ["Calculation Settings", "Acknowledgements"]
-
+        settingArray = ["Change University", "Acknowledgements"]
+        navigationItem.title = "Settings"
         
     }
     
@@ -39,6 +39,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 
     /*
     // MARK: - Navigation
