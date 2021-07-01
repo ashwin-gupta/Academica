@@ -22,6 +22,7 @@ class UnitViewController: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     
+    
     weak var databaseController: DatabaseProtocol?
     
     var newSubject: Bool = false
@@ -34,6 +35,7 @@ class UnitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if newSubject == false {
             fillInformation(oldSubject: subject!)
         }
@@ -43,7 +45,7 @@ class UnitViewController: UIViewController {
         
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
 //        gradeControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
-        gradeControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
+        gradeControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
     }
     
     // Sets the details of the pre-existing subject

@@ -30,6 +30,7 @@
 		8390684F266D08BF00BB65E8 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390684E266D08BF00BB65E8 /* PresetsViewController.swift */; };
 		83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906850266D091500BB65E8 /* WeightingTableViewCell.swift */; };
 		83906853266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */; };
+		83906865266D1C8E00BB65E8 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906864266D1C8E00BB65E8 /* University.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		8390684E266D08BF00BB65E8 /* PresetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		83906850266D091500BB65E8 /* WeightingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightingTableViewCell.swift; sourceTree = "<group>"; };
 		83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsCollectionViewCell.swift; sourceTree = "<group>"; };
+		83906864266D1C8E00BB65E8 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		83297FA0250ADC6200EC25FD /* Academica */ = {
 			isa = PBXGroup;
 			children = (
+				83906863266D1C8400BB65E8 /* Classes */,
 				830B6B25251A153900BD53E4 /* Database */,
 				830B6B19251A127100BD53E4 /* DataModel */,
 				83297FC3250B3E7E00EC25FD /* ViewControllers */,
@@ -140,6 +143,14 @@
 				83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		83906863266D1C8400BB65E8 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				83906864266D1C8E00BB65E8 /* University.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +234,7 @@
 				83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */,
 				8372D73F266C87BE00423EE1 /* Subject+CoreDataProperties.swift in Sources */,
 				83297FC0250B3E7900EC25FD /* UnitViewController.swift in Sources */,
+				83906865266D1C8E00BB65E8 /* University.swift in Sources */,
 				83297FA4250ADC6200EC25FD /* SceneDelegate.swift in Sources */,
 				832748412608BFF900D8E547 /* SubjectsTableViewController.swift in Sources */,
 				8372D72A266C666800423EE1 /* SettingsViewController.swift in Sources */,
@@ -387,7 +399,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.ashwin-Gupta.Academica";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashwin-Gupta.Academica";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -408,7 +421,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.ashwin-Gupta.Academica";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashwin-Gupta.Academica";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

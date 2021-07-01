@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-        settingArray = ["Calculation Settings", "Acknowledgements"]
+        settingArray = ["Change University", "Acknowledgements"]
         navigationItem.title = "Settings"
         
     }

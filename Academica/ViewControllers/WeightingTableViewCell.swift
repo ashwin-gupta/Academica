@@ -10,8 +10,9 @@ import UIKit
 
 class WeightingTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var gradeLabel: UIView!
-    @IBOutlet weak var weightLabel: UIView!
+    @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -14,14 +14,8 @@
         <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="student" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="subjects" inverseEntity="Student"/>
     </entity>
-    <entity name="University" representedClassName="University" syncable="YES">
-        <attribute name="grades" optional="YES" attributeType="Transformable" customClassName="[String]"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="weights" optional="YES" attributeType="Transformable" customClassName="[Double]"/>
-    </entity>
     <elements>
         <element name="Student" positionX="-237.4649658203125" positionY="48.15634155273438" width="128" height="73"/>
         <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="163"/>
-        <element name="University" positionX="-27" positionY="171" width="128" height="74"/>
     </elements>
 </model>
