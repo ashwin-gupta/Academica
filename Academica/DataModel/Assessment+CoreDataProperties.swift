@@ -17,10 +17,10 @@ extension Assessment {
         return NSFetchRequest<Assessment>(entityName: "Assessment")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var dueDate: Date?
-    @NSManaged public var weighting: Double
+    @NSManaged public var name: String?
     @NSManaged public var score: Double
+    @NSManaged public var weighting: Double
     @NSManaged public var subject: NSSet?
 
 }

@@ -33,7 +33,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func cleanup()
     
-    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool) -> Subject
+    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool, inProgress: Bool) -> Subject
 
     func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment
     

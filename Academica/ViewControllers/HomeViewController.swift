@@ -23,7 +23,6 @@ extension UIViewController {
 }
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
-    
 
     // Setting the inests of the collection view controller
     private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)

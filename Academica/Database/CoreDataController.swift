@@ -87,7 +87,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
 
-    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool) -> Subject {
+    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool, inProgress: Bool) -> Subject {
         let subject = NSEntityDescription.insertNewObject(forEntityName: "Subject", into: persistentContainer.viewContext) as! Subject
         subject.name = name
         subject.code = code
@@ -96,6 +96,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         subject.year = year
         subject.score = score
         subject.isFavourite = false
+        subject.inProgress = inProgress
         
         debugPrint(addSubjectToStudent(student: defaultStudent, subject: subject))
         
@@ -254,7 +255,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     func test() {
-        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true)
+        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true, inProgress: true)
         
         let testAssessment = addAssessment(name: "TestAssessment", dueDate: "2020", weighting: 40, score: 0, subject: testSubject)
         

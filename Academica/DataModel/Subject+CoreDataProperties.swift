@@ -24,25 +24,9 @@ extension Subject {
     @NSManaged public var points: Double
     @NSManaged public var score: Double
     @NSManaged public var year: Int16
-    @NSManaged public var student: NSSet?
+    @NSManaged public var inProgress: Bool
     @NSManaged public var assessments: NSSet?
-
-}
-
-// MARK: Generated accessors for student
-extension Subject {
-
-    @objc(addStudentObject:)
-    @NSManaged public func addToStudent(_ value: Student)
-
-    @objc(removeStudentObject:)
-    @NSManaged public func removeFromStudent(_ value: Student)
-
-    @objc(addStudent:)
-    @NSManaged public func addToStudent(_ values: NSSet)
-
-    @objc(removeStudent:)
-    @NSManaged public func removeFromStudent(_ values: NSSet)
+    @NSManaged public var student: NSSet?
 
 }
 
@@ -60,6 +44,23 @@ extension Subject {
 
     @objc(removeAssessments:)
     @NSManaged public func removeFromAssessments(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for student
+extension Subject {
+
+    @objc(addStudentObject:)
+    @NSManaged public func addToStudent(_ value: Student)
+
+    @objc(removeStudentObject:)
+    @NSManaged public func removeFromStudent(_ value: Student)
+
+    @objc(addStudent:)
+    @NSManaged public func addToStudent(_ values: NSSet)
+
+    @objc(removeStudent:)
+    @NSManaged public func removeFromStudent(_ values: NSSet)
 
 }
 

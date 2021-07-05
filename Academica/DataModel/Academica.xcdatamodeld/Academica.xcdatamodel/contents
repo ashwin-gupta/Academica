@@ -14,6 +14,7 @@
     <entity name="Subject" representedClassName="Subject" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String"/>
         <attribute name="grade" optional="YES" attributeType="String"/>
+        <attribute name="inProgress" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="points" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -23,8 +24,8 @@
         <relationship name="student" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="subjects" inverseEntity="Student"/>
     </entity>
     <elements>
-        <element name="Student" positionX="-237.4649658203125" positionY="48.15634155273438" width="128" height="73"/>
-        <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="178"/>
         <element name="Assessment" positionX="45" positionY="162" width="128" height="104"/>
+        <element name="Student" positionX="-237.4649658203125" positionY="48.15634155273438" width="128" height="73"/>
+        <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="179"/>
     </elements>
 </model>
