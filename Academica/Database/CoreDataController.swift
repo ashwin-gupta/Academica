@@ -10,8 +10,9 @@ import UIKit
 import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
+
     
-    
+
     let DEFAULT_STUDENT = "Default Student"
     var listeners = MulticastDelegate<DatabaseListener>()
     var persistentContainer: NSPersistentContainer
@@ -19,6 +20,8 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // Fetched Results Controllers
     var allSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
     var studentSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
+    var subjectAssessmentsFetchedResultsController:
+        NSFetchedResultsController<Assessment>?
     
     override init() {
         // Load the Core Data Stack
@@ -31,6 +34,8 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
         
         super.init()
+        
+        test()
         
     }
     
@@ -104,6 +109,35 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return true
     }
     
+    
+    
+    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment {
+        let assessment = NSEntityDescription.insertNewObject(forEntityName: "Assessment", into: persistentContainer.viewContext) as! Assessment
+        
+        assessment.name = name
+        assessment.score = score
+        assessment.weighting = weighting
+        
+        debugPrint(addAssessmentToSubject(subject: subject, assessment: assessment))
+        
+        return assessment
+        
+    }
+    
+    func addAssessmentToSubject(subject: Subject, assessment: Assessment) -> Bool {
+        subject.addToAssessments(assessment)
+        return true
+    }
+    
+    func deleteAssessment(subject: Subject, assessment: Assessment) {
+        persistentContainer.viewContext.delete(assessment)
+        removeAssessmentFromSubject(subject: subject , assessment: assessment)
+    }
+    
+    func removeAssessmentFromSubject(subject: Subject, assessment: Assessment) {
+        subject.removeFromAssessments(assessment)
+    }
+    
     func deleteSubject(subject: Subject) {
         persistentContainer.viewContext.delete(subject)
         removeSubjectFromStudent(subject: subject, student: defaultStudent)
@@ -130,8 +164,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
         }
     }
-    
-
     
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
@@ -220,4 +252,15 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         return subjects
     }
+    
+    func test() {
+        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true)
+        
+        let testAssessment = addAssessment(name: "TestAssessment", dueDate: "2020", weighting: 40, score: 0, subject: testSubject)
+        
+        
+        
+    }
+    
+    
 }

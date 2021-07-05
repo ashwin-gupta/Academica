@@ -23,6 +23,7 @@ extension UIViewController {
 }
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    
 
     // Setting the inests of the collection view controller
     private let sectionInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
@@ -214,6 +215,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         units = subjects
         favUnits = getFavouriteSubjects(allUnits: units)
         unitTableView.reloadData()
+    }
+    
+    func onAssessmentChange(change: DatabaseChange, subjects: [Assessment]) {
+        // Do nothing
     }
     
     func getFavouriteSubjects(allUnits: [Subject]) -> [Subject] {

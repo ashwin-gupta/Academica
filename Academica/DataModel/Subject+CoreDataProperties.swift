@@ -2,7 +2,7 @@
 //  Subject+CoreDataProperties.swift
 //  Academica
 //
-//  Created by Ashwin Gupta on 6/6/21.
+//  Created by Ashwin Gupta on 5/7/21.
 //  Copyright © 2021 Ashwin Gupta. All rights reserved.
 //
 //
@@ -19,12 +19,13 @@ extension Subject {
 
     @NSManaged public var code: String?
     @NSManaged public var grade: String?
+    @NSManaged public var isFavourite: Bool
     @NSManaged public var name: String?
     @NSManaged public var points: Double
     @NSManaged public var score: Double
     @NSManaged public var year: Int16
-    @NSManaged public var isFavourite: Bool
     @NSManaged public var student: NSSet?
+    @NSManaged public var assessments: NSSet?
 
 }
 
@@ -42,6 +43,23 @@ extension Subject {
 
     @objc(removeStudent:)
     @NSManaged public func removeFromStudent(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for assessments
+extension Subject {
+
+    @objc(addAssessmentsObject:)
+    @NSManaged public func addToAssessments(_ value: Assessment)
+
+    @objc(removeAssessmentsObject:)
+    @NSManaged public func removeFromAssessments(_ value: Assessment)
+
+    @objc(addAssessments:)
+    @NSManaged public func addToAssessments(_ values: NSSet)
+
+    @objc(removeAssessments:)
+    @NSManaged public func removeFromAssessments(_ values: NSSet)
 
 }
 

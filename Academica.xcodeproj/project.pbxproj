@@ -22,15 +22,17 @@
 		834C941626496AEB0092771A /* CalculationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */; };
 		8372D72A266C666800423EE1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D729266C666800423EE1 /* SettingsViewController.swift */; };
 		8372D72B266C6CA200423EE1 /* Academica.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */; };
-		8372D73C266C87BE00423EE1 /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D738266C87BE00423EE1 /* Student+CoreDataClass.swift */; };
-		8372D73D266C87BE00423EE1 /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D739266C87BE00423EE1 /* Student+CoreDataProperties.swift */; };
-		8372D73E266C87BE00423EE1 /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D73A266C87BE00423EE1 /* Subject+CoreDataClass.swift */; };
-		8372D73F266C87BE00423EE1 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D73B266C87BE00423EE1 /* Subject+CoreDataProperties.swift */; };
 		8372D741266C957200423EE1 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D740266C957200423EE1 /* HomeInfoTableViewCell.swift */; };
 		8390684F266D08BF00BB65E8 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390684E266D08BF00BB65E8 /* PresetsViewController.swift */; };
 		83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906850266D091500BB65E8 /* WeightingTableViewCell.swift */; };
 		83906853266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */; };
 		83906865266D1C8E00BB65E8 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906864266D1C8E00BB65E8 /* University.swift */; };
+		83A992812693389F008BD8EE /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9927B2693389F008BD8EE /* Student+CoreDataClass.swift */; };
+		83A992822693389F008BD8EE /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9927C2693389F008BD8EE /* Student+CoreDataProperties.swift */; };
+		83A992832693389F008BD8EE /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9927D2693389F008BD8EE /* Subject+CoreDataClass.swift */; };
+		83A992842693389F008BD8EE /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9927E2693389F008BD8EE /* Subject+CoreDataProperties.swift */; };
+		83A992852693389F008BD8EE /* Assessment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9927F2693389F008BD8EE /* Assessment+CoreDataClass.swift */; };
+		83A992862693389F008BD8EE /* Assessment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A992802693389F008BD8EE /* Assessment+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,15 +53,17 @@
 		83297FBF250B3E7900EC25FD /* UnitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTableViewCell.swift; sourceTree = "<group>"; };
 		834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8372D729266C666800423EE1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		8372D738266C87BE00423EE1 /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8372D739266C87BE00423EE1 /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		8372D73A266C87BE00423EE1 /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8372D73B266C87BE00423EE1 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8372D740266C957200423EE1 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		8390684E266D08BF00BB65E8 /* PresetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		83906850266D091500BB65E8 /* WeightingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightingTableViewCell.swift; sourceTree = "<group>"; };
 		83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsCollectionViewCell.swift; sourceTree = "<group>"; };
 		83906864266D1C8E00BB65E8 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
+		83A9927B2693389F008BD8EE /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
+		83A9927C2693389F008BD8EE /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83A9927D2693389F008BD8EE /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		83A9927E2693389F008BD8EE /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83A9927F2693389F008BD8EE /* Assessment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		83A992802693389F008BD8EE /* Assessment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +80,12 @@
 		830B6B19251A127100BD53E4 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				8372D738266C87BE00423EE1 /* Student+CoreDataClass.swift */,
-				8372D739266C87BE00423EE1 /* Student+CoreDataProperties.swift */,
-				8372D73A266C87BE00423EE1 /* Subject+CoreDataClass.swift */,
-				8372D73B266C87BE00423EE1 /* Subject+CoreDataProperties.swift */,
+				83A9927B2693389F008BD8EE /* Student+CoreDataClass.swift */,
+				83A9927C2693389F008BD8EE /* Student+CoreDataProperties.swift */,
+				83A9927D2693389F008BD8EE /* Subject+CoreDataClass.swift */,
+				83A9927E2693389F008BD8EE /* Subject+CoreDataProperties.swift */,
+				83A9927F2693389F008BD8EE /* Assessment+CoreDataClass.swift */,
+				83A992802693389F008BD8EE /* Assessment+CoreDataProperties.swift */,
 				830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */,
 			);
 			path = DataModel;
@@ -118,8 +124,8 @@
 				830B6B25251A153900BD53E4 /* Database */,
 				830B6B19251A127100BD53E4 /* DataModel */,
 				83297FC3250B3E7E00EC25FD /* ViewControllers */,
-				83297FA1250ADC6200EC25FD /* AppDelegate.swift */,
 				83297FA3250ADC6200EC25FD /* SceneDelegate.swift */,
+				83297FA1250ADC6200EC25FD /* AppDelegate.swift */,
 				83297FA7250ADC6200EC25FD /* Main.storyboard */,
 				83297FAA250ADC6500EC25FD /* Assets.xcassets */,
 				83297FAC250ADC6500EC25FD /* LaunchScreen.storyboard */,
@@ -225,26 +231,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A992832693389F008BD8EE /* Subject+CoreDataClass.swift in Sources */,
 				83297FC1250B3E7900EC25FD /* HomeViewController.swift in Sources */,
-				8372D73C266C87BE00423EE1 /* Student+CoreDataClass.swift in Sources */,
 				83297FA2250ADC6200EC25FD /* AppDelegate.swift in Sources */,
 				830B6B27251A154E00BD53E4 /* DatabaseProtocol.swift in Sources */,
-				8372D73E266C87BE00423EE1 /* Subject+CoreDataClass.swift in Sources */,
 				830B6B2B251A17DE00BD53E4 /* CoreDataController.swift in Sources */,
 				83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */,
-				8372D73F266C87BE00423EE1 /* Subject+CoreDataProperties.swift in Sources */,
 				83297FC0250B3E7900EC25FD /* UnitViewController.swift in Sources */,
+				83A992822693389F008BD8EE /* Student+CoreDataProperties.swift in Sources */,
 				83906865266D1C8E00BB65E8 /* University.swift in Sources */,
 				83297FA4250ADC6200EC25FD /* SceneDelegate.swift in Sources */,
 				832748412608BFF900D8E547 /* SubjectsTableViewController.swift in Sources */,
+				83A992852693389F008BD8EE /* Assessment+CoreDataClass.swift in Sources */,
+				83A992812693389F008BD8EE /* Student+CoreDataClass.swift in Sources */,
 				8372D72A266C666800423EE1 /* SettingsViewController.swift in Sources */,
 				83297FC2250B3E7900EC25FD /* UnitTableViewCell.swift in Sources */,
 				834C941626496AEB0092771A /* CalculationCollectionViewCell.swift in Sources */,
 				8390684F266D08BF00BB65E8 /* PresetsViewController.swift in Sources */,
+				83A992842693389F008BD8EE /* Subject+CoreDataProperties.swift in Sources */,
 				830B6B29251A171E00BD53E4 /* MulticastDelegate.swift in Sources */,
 				83906853266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift in Sources */,
 				8372D741266C957200423EE1 /* HomeInfoTableViewCell.swift in Sources */,
-				8372D73D266C87BE00423EE1 /* Student+CoreDataProperties.swift in Sources */,
+				83A992862693389F008BD8EE /* Assessment+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

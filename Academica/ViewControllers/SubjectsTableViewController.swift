@@ -9,6 +9,8 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
+
+    
     
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
@@ -69,6 +71,10 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         }
         
         tableView.reloadData()
+    }
+    
+    func onAssessmentChange(change: DatabaseChange, subjects: [Assessment]) {
+        // Do nothing
     }
     
     
