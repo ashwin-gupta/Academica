@@ -9,6 +9,8 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
+
+    
     
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
@@ -69,6 +71,10 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         }
         
         tableView.reloadData()
+    }
+    
+    func onAssessmentChange(change: DatabaseChange, assessments: [Assessment]) {
+        // Do nothing
     }
     
     
@@ -189,7 +195,7 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
             
         } else if segue.identifier == "newUnitSegue" {
             let destination = segue.destination as! UnitViewController
-            destination.newSubject = true
+            destination.newSubjectFlag = true
             
         }
     }

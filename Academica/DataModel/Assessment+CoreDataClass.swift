@@ -1,5 +1,5 @@
 //
-//  Subject+CoreDataClass.swift
+//  Assessment+CoreDataClass.swift
 //  Academica
 //
 //  Created by Ashwin Gupta on 6/7/21.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Subject)
-public class Subject: NSManagedObject {
+@objc(Assessment)
+public class Assessment: NSManagedObject {
 
 }

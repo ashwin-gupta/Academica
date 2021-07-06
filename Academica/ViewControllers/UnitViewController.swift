@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UnitViewController: UIViewController {
+class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
 
     @IBOutlet weak var unitCodeInput: UITextField!
     
@@ -18,40 +18,62 @@ class UnitViewController: UIViewController {
     
     @IBOutlet weak var creditInput: UITextField!
     
-    @IBOutlet weak var gradeControl: UISegmentedControl!
+    @IBOutlet weak var progressControl: UISegmentedControl!
+    
+    @IBOutlet weak var gradePicker: UIPickerView!
     
     @IBOutlet weak var nameTextField: UITextField!
     
+    @IBOutlet weak var assessmentTableView: UITableView!
     
     weak var databaseController: DatabaseProtocol?
     
-    var newSubject: Bool = false
+    var newSubjectFlag: Bool = false
     var subject: Subject?
-    
-    let grades = ["HD", "D", "C", "P", "N", "F"]
-    
+    var assessments: [Assessment] = []
+    var grades : [String] = [String]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
+        self.assessmentTableView.delegate = self
+        self.assessmentTableView.dataSource = self
         
-        if newSubject == false {
+        self.gradePicker.delegate = self
+        self.gradePicker.dataSource = self
+        
+        grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)"]
+        
+        if newSubjectFlag == false {
             fillInformation(oldSubject: subject!)
+        } else {
+            progressControl.selectedSegmentIndex = 1
+            
         }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
+        guard let databaseController = databaseController else {
+            fatalError("No database controller.")
+        }
+        
+        
+        navigationItem.title = (subject != nil) ? "\(subject?.name)" : "New Subject"
+        subject = databaseController.createEditableSubject(existingSubject: subject)
+        
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
-//        gradeControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
-        gradeControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
+        progressControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
+        
+        
+//        assessments = (databaseController?.fetchSubjectAssessments(subject: subject!))!
+//        debugPrint(assessments.count)
     }
     
     // Sets the details of the pre-existing subject
     func fillInformation (oldSubject: Subject) {
-        
-        navigationItem.title = oldSubject.code
         
         nameTextField.text = oldSubject.name
         unitCodeInput.text = oldSubject.code
@@ -59,44 +81,30 @@ class UnitViewController: UIViewController {
         scoreInput.text = String(format: "%.0f", oldSubject.score)
         creditInput.text = String(format: "%.0f", oldSubject.points)
         
+        if subject?.inProgress == true {
+            progressControl.selectedSegmentIndex = 0
+        }
+        
         switch oldSubject.grade {
         case "D":
-            gradeControl.selectedSegmentIndex = 1
+            gradePicker.selectRow(1, inComponent: 0, animated: true)
         case "C":
-            gradeControl.selectedSegmentIndex = 2
+            gradePicker.selectRow(2, inComponent: 0, animated: true)
         case "P":
-            gradeControl.selectedSegmentIndex = 3
+            gradePicker.selectRow(3, inComponent: 0, animated: true)
         case "N":
-            gradeControl.selectedSegmentIndex = 4
-        case "F":
-            gradeControl.selectedSegmentIndex = 5
+            gradePicker.selectRow(4, inComponent: 0, animated: true)
+        case "WN":
+            gradePicker.selectRow(5, inComponent: 0, animated: true)
+        case "NH":
+            gradePicker.selectRow(6, inComponent: 0, animated: true)
+        case "SFR":
+            gradePicker.selectRow(7, inComponent: 0, animated: true)
         default:
-            gradeControl.selectedSegmentIndex = 0
+            gradePicker.selectRow(0, inComponent: 0, animated: true)
         }
         
         
-    }
-    
-    // For styling of segmented control
-    func gradeControlStyle() {
-        
-        switch gradeControl.selectedSegmentIndex {
-        case 1:
-            gradeControl.selectedSegmentTintColor = .systemTeal
-            gradeControl.reloadInputViews()
-        case 2:
-            gradeControl.selectedSegmentTintColor = .systemYellow
-            gradeControl.reloadInputViews()
-        case 3:
-            gradeControl.selectedSegmentTintColor = .systemOrange
-            gradeControl.reloadInputViews()
-        case 4:
-            gradeControl.selectedSegmentTintColor = .systemRed
-            gradeControl.reloadInputViews()
-        default:
-            gradeControl.selectedSegmentTintColor = .systemGreen
-            gradeControl.reloadInputViews()
-        }
     }
     
 
@@ -109,13 +117,38 @@ class UnitViewController: UIViewController {
             let score = Double(scoreInput.text!)
             let points = Double(creditInput.text!)
             let year = Int16(yearInput.text!)
-            let grade = grades[gradeControl.selectedSegmentIndex]
-            print(newSubject)
+            
+            var grade: String
+        
+            switch gradePicker.selectedRow(inComponent: 0) {
+            case 1:
+                grade = "D"
+            case 2:
+                grade = "C"
+            case 3:
+                grade = "P"
+            case 4:
+                grade = "N"
+            case 5:
+                grade = "WN"
+            case 6:
+                grade = "NH"
+            case 7:
+                grade = "SFR"
+            default:
+                grade = "HD"
+            }
+            
+            var inProgress = false
+            if progressControl.selectedSegmentIndex == 0 {
+                inProgress = true
+            }
+            
+            print(newSubjectFlag)
             let favourite = false
             
-            if newSubject {
-
-                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!, favourite: favourite)
+            if newSubjectFlag {
+                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!, favourite: favourite, inProgress: inProgress)
                 
             } else {
                 subject?.name = name
@@ -124,6 +157,8 @@ class UnitViewController: UIViewController {
                 subject?.points = points!
                 subject?.year = year!
                 subject?.grade = grade
+                subject?.inProgress = inProgress
+                
             }
             
             navigationController?.popViewController(animated: true)
@@ -131,6 +166,31 @@ class UnitViewController: UIViewController {
         }
         
     }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return grades.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return grades[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var label = UILabel()
+        if let v = view {
+            label = v as! UILabel
+        }
+        
+        label.font = UIFont(name: "San Francisco", size: 12)
+        label.text = grades[row]
+        label.textAlignment = .center
+        return label
+    }
+    
     
     func checkInputValidity() -> Bool {
         if nameTextField.text == ""  {
@@ -170,14 +230,39 @@ class UnitViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    /*
+    // MARK: - TableView Delegates
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "assessmentCountCell") as! AssessmentTableViewCell
+        
+        var count: Int?
+        
+        count = subject?.assessments?.count
+        
+        if count == nil {
+            count = 0
+        }
+        cell.assessmentCount.text = "\(count!)"
+        
+        return cell
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "viewAllAssessmentsSegue" {
+            let destination = segue.destination as! AssessmentsViewController
+            
+            destination.subject = subject!
+        
+        }
     }
-    */
+    
 
 }

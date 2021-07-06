@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Assessment" representedClassName="Assessment" syncable="YES">
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="weighting" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="subject" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subject" inverseName="assessments" inverseEntity="Subject"/>
+    </entity>
     <entity name="Student" representedClassName="Student" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="subjects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subject" inverseName="student" inverseEntity="Subject"/>
@@ -7,15 +14,18 @@
     <entity name="Subject" representedClassName="Subject" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String"/>
         <attribute name="grade" optional="YES" attributeType="String"/>
+        <attribute name="inProgress" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="points" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="assessments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Assessment" inverseName="subject" inverseEntity="Assessment"/>
         <relationship name="student" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="subjects" inverseEntity="Student"/>
     </entity>
     <elements>
+        <element name="Assessment" positionX="45" positionY="162" width="128" height="104"/>
         <element name="Student" positionX="-237.4649658203125" positionY="48.15634155273438" width="128" height="73"/>
-        <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="163"/>
+        <element name="Subject" positionX="329.947021484375" positionY="133.0363159179688" width="128" height="179"/>
     </elements>
 </model>

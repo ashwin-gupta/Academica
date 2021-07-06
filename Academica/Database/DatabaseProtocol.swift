@@ -15,6 +15,7 @@ enum DatabaseChange {
 enum ListenerType {
     case students
     case subjects
+    case assessment
     case all
 }
 
@@ -23,7 +24,7 @@ protocol DatabaseListener: AnyObject {
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject])
     func onSubjectChange(change: DatabaseChange, subjects: [Subject])
-
+    func onAssessmentChange(change: DatabaseChange, assessments: [Assessment])
     
 }
 
@@ -32,17 +33,25 @@ protocol DatabaseProtocol: AnyObject {
     
     func cleanup()
     
-    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool) -> Subject
+    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool, inProgress: Bool) -> Subject
 
+    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment
+    
     func addStudent(name: String) -> Student
     
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool
+    
+    func deleteAssessment(subject: Subject, assessment: Assessment)
+    
+    func createEditableSubject(existingSubject newSubject: Subject?) -> Subject
     
     func deleteSubject(subject: Subject)
     
     func deleteStudent(student: Student)
     
     func removeSubjectFromStudent(subject: Subject, student: Student)
+    
+    func removeAssessmentFromSubject(subject: Subject, assessment: Assessment)
     
     func addListener(listener: DatabaseListener)
     

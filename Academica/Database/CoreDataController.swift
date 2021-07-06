@@ -10,15 +10,19 @@ import UIKit
 import CoreData
 
 class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
-    
-    
+
     let DEFAULT_STUDENT = "Default Student"
     var listeners = MulticastDelegate<DatabaseListener>()
     var persistentContainer: NSPersistentContainer
+    var editingContext: NSManagedObjectContext
     
     // Fetched Results Controllers
     var allSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
     var studentSubjectsFetchedResultsController: NSFetchedResultsController<Subject>?
+    var allAssessmentsFetchedResultsController:
+        NSFetchedResultsController<Assessment>?
+    var SubjectAssessmentsFetchedResultsController:
+        NSFetchedResultsController<Assessment>?
     
     override init() {
         // Load the Core Data Stack
@@ -30,7 +34,12 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
         
+        editingContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        editingContext.parent = persistentContainer.viewContext
+        
         super.init()
+        
+        test()
         
     }
     
@@ -82,7 +91,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
 
-    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool) -> Subject {
+    func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool, inProgress: Bool) -> Subject {
         let subject = NSEntityDescription.insertNewObject(forEntityName: "Subject", into: persistentContainer.viewContext) as! Subject
         subject.name = name
         subject.code = code
@@ -91,6 +100,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         subject.year = year
         subject.score = score
         subject.isFavourite = false
+        subject.inProgress = inProgress
         
         debugPrint(addSubjectToStudent(student: defaultStudent, subject: subject))
         
@@ -102,6 +112,54 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool {
         student.addToSubjects(subject)
         return true
+    }
+    
+    
+    
+    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment {
+        
+        guard let context = subject.managedObjectContext else {
+            fatalError("Drink without context passed to addAssessmentToCocktail")
+        }
+        
+        let assessment = NSEntityDescription.insertNewObject(forEntityName: "Assessment", into: context) as! Assessment
+        
+//        let dateFormatterGet = DateFormatter()
+//        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//
+//        let dateFormatterPrint = DateFormatter()
+//        dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+//
+//        if let date = dateFormatterGet.date(from: dueDate) {
+//            print(dateFormatterPrint.string(from: date))
+//        } else {
+//           print("There was an error decoding the string")
+//        }
+        
+        assessment.name = name
+        assessment.score = score
+        
+        assessment.weighting = weighting
+        
+        
+        return assessment
+        
+    }
+    
+    func addAssessmentToSubject(subject: Subject, assessment: Assessment) -> Bool {
+
+        
+        subject.addToAssessments(assessment)
+        return true
+    }
+    
+    func deleteAssessment(subject: Subject, assessment: Assessment) {
+        persistentContainer.viewContext.delete(assessment)
+        removeAssessmentFromSubject(subject: subject , assessment: assessment)
+    }
+    
+    func removeAssessmentFromSubject(subject: Subject, assessment: Assessment) {
+        subject.removeFromAssessments(assessment)
     }
     
     func deleteSubject(subject: Subject) {
@@ -129,9 +187,11 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .subjects || listener.listenerType == .all {
             listener.onSubjectChange(change: .update, subjects: fetchAllSubjects())
         }
+        
+        if listener.listenerType == .assessment || listener.listenerType == .all {
+            listener.onAssessmentChange(change: .update, assessments: fetchAllAssessments())
+        }
     }
-    
-
     
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
@@ -151,6 +211,12 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             listeners.invoke { (listener) in
                 if listener.listenerType == .students || listener.listenerType == .all {
                     listener.onStudentChange(change: .update, studentSubjects: fetchStudentSubjects())
+                }
+            }
+        } else if controller == allAssessmentsFetchedResultsController {
+            listeners.invoke { (listener) in
+                if listener.listenerType == .assessment || listener.listenerType == .all {
+                    listener.onAssessmentChange(change: .update, assessments: fetchAllAssessments())
                 }
             }
         }
@@ -192,6 +258,39 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
     }
     
+    func fetchAllAssessments() -> [Assessment] {
+        // if results controller not currenty initialised
+        if allAssessmentsFetchedResultsController == nil {
+            let fetchRequest: NSFetchRequest<Assessment> = Assessment.fetchRequest()
+            
+            // Sort by name
+            let nameSortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
+            fetchRequest.sortDescriptors = [nameSortDescriptor]
+            
+            // Initialize Results Controller
+            allAssessmentsFetchedResultsController = NSFetchedResultsController<Assessment>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            
+            // Set this class to be the results delegate
+            allAssessmentsFetchedResultsController?.delegate = self
+            
+            do {
+                try allAssessmentsFetchedResultsController?.performFetch()
+            } catch {
+                print("Fetch Request Failed: \(error)")
+            }
+        }
+        
+        var assessments = [Assessment]()
+        if allAssessmentsFetchedResultsController?.fetchedObjects != nil {
+            assessments = (allAssessmentsFetchedResultsController?.fetchedObjects)!
+        }
+        
+        return assessments
+        
+        
+    }
+    
+    
     func fetchStudentSubjects() -> [Subject] {
         if studentSubjectsFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
@@ -220,4 +319,50 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         return subjects
     }
+    
+    func createEditableSubject(existingSubject newSubject: Subject?) -> Subject {
+        editingContext.rollback()
+        
+        if let existingSubject = newSubject {
+            return editingContext.object(with: existingSubject.objectID) as! Subject
+        }
+        
+        let newSubject = NSEntityDescription.insertNewObject(forEntityName: "Subject", into: editingContext) as! Subject
+        
+        return newSubject
+    }
+    
+    func saveEdits() {
+        if editingContext.hasChanges {
+            do {
+                try editingContext.save()
+            } catch {
+                fatalError("Failed to save data to Core Data: \(error)")
+            }
+            
+            save()
+        }
+    }
+    
+    func save() {
+        if persistentContainer.viewContext.hasChanges {
+            do {
+                try persistentContainer.viewContext.save()
+            } catch {
+                fatalError("Failed to save data to Core Data: \(error)")
+            }
+        }
+        
+    }
+    
+    func test() {
+        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true, inProgress: true)
+        
+        let testAssessment = addAssessment(name: "TestAssessment", dueDate: "2020", weighting: 40, score: 0, subject: testSubject)
+        
+        
+        
+    }
+    
+    
 }
