@@ -11,12 +11,11 @@ import UIKit
 // Extension for all View Controllers to allow users to tap out of a text field by tapping the background
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
-    
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -48,6 +47,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
@@ -216,7 +216,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         unitTableView.reloadData()
     }
     
-    func onAssessmentChange(change: DatabaseChange, subjects: [Assessment]) {
+    func onAssessmentChange(change: DatabaseChange, assessments: [Assessment]) {
         // Do nothing
     }
     
@@ -301,7 +301,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "newSubjectSegue" {
             let destination = segue.destination as! UnitViewController
-            destination.newSubject = true
+            destination.newSubjectFlag = true
             
         } else if segue.identifier == "oldSubjectSegue" {
             let destination = segue.destination as! UnitViewController

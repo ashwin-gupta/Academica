@@ -24,7 +24,7 @@ protocol DatabaseListener: AnyObject {
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject])
     func onSubjectChange(change: DatabaseChange, subjects: [Subject])
-    func onAssessmentChange(change: DatabaseChange, subjects: [Assessment])
+    func onAssessmentChange(change: DatabaseChange, assessments: [Assessment])
     
 }
 
@@ -37,13 +37,13 @@ protocol DatabaseProtocol: AnyObject {
 
     func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment
     
-    func addAssessmentToSubject(subject: Subject, assessment: Assessment) -> Bool
-    
     func addStudent(name: String) -> Student
     
     func addSubjectToStudent(student: Student, subject: Subject) -> Bool
     
     func deleteAssessment(subject: Subject, assessment: Assessment)
+    
+    func createEditableSubject(existingSubject newSubject: Subject?) -> Subject
     
     func deleteSubject(subject: Subject)
     

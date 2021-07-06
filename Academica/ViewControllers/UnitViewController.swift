@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
 
     @IBOutlet weak var unitCodeInput: UITextField!
     
@@ -28,13 +28,15 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     weak var databaseController: DatabaseProtocol?
     
-    var newSubject: Bool = false
+    var newSubjectFlag: Bool = false
     var subject: Subject?
+    var assessments: [Assessment] = []
     var grades : [String] = [String]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         self.assessmentTableView.delegate = self
         self.assessmentTableView.dataSource = self
@@ -44,7 +46,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)"]
         
-        if newSubject == false {
+        if newSubjectFlag == false {
             fillInformation(oldSubject: subject!)
         } else {
             progressControl.selectedSegmentIndex = 1
@@ -54,15 +56,24 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
+        guard let databaseController = databaseController else {
+            fatalError("No database controller.")
+        }
+        
+        
+        navigationItem.title = (subject != nil) ? "\(subject?.name)" : "New Subject"
+        subject = databaseController.createEditableSubject(existingSubject: subject)
+        
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
         progressControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
         
+        
+//        assessments = (databaseController?.fetchSubjectAssessments(subject: subject!))!
+//        debugPrint(assessments.count)
     }
     
     // Sets the details of the pre-existing subject
     func fillInformation (oldSubject: Subject) {
-        
-        navigationItem.title = oldSubject.code
         
         nameTextField.text = oldSubject.name
         unitCodeInput.text = oldSubject.code
@@ -133,10 +144,10 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
                 inProgress = true
             }
             
-            print(newSubject)
+            print(newSubjectFlag)
             let favourite = false
             
-            if newSubject {
+            if newSubjectFlag {
                 let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!, favourite: favourite, inProgress: inProgress)
                 
             } else {
@@ -146,6 +157,8 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
                 subject?.points = points!
                 subject?.year = year!
                 subject?.grade = grade
+                subject?.inProgress = inProgress
+                
             }
             
             navigationController?.popViewController(animated: true)
@@ -224,25 +237,32 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "assessmentCell") as! AssessmentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "assessmentCountCell") as! AssessmentTableViewCell
         
         var count: Int?
         
         count = subject?.assessments?.count
         
+        if count == nil {
+            count = 0
+        }
         cell.assessmentCount.text = "\(count!)"
         
         return cell
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "viewAllAssessmentsSegue" {
+            let destination = segue.destination as! AssessmentsViewController
+            
+            destination.subject = subject!
+        
+        }
     }
-    */
+    
 
 }

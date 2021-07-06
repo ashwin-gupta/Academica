@@ -23,17 +23,20 @@
 		8372D72A266C666800423EE1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D729266C666800423EE1 /* SettingsViewController.swift */; };
 		8372D72B266C6CA200423EE1 /* Academica.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */; };
 		8372D741266C957200423EE1 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372D740266C957200423EE1 /* HomeInfoTableViewCell.swift */; };
+		838B0A4726940EA3007BBBAA /* Assessment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4126940EA3007BBBAA /* Assessment+CoreDataClass.swift */; };
+		838B0A4826940EA3007BBBAA /* Assessment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4226940EA3007BBBAA /* Assessment+CoreDataProperties.swift */; };
+		838B0A4926940EA3007BBBAA /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4326940EA3007BBBAA /* Subject+CoreDataClass.swift */; };
+		838B0A4A26940EA3007BBBAA /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4426940EA3007BBBAA /* Subject+CoreDataProperties.swift */; };
+		838B0A4B26940EA3007BBBAA /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4526940EA3007BBBAA /* Student+CoreDataClass.swift */; };
+		838B0A4C26940EA3007BBBAA /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0A4626940EA3007BBBAA /* Student+CoreDataProperties.swift */; };
 		8390684F266D08BF00BB65E8 /* PresetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390684E266D08BF00BB65E8 /* PresetsViewController.swift */; };
 		83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906850266D091500BB65E8 /* WeightingTableViewCell.swift */; };
 		83906853266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */; };
 		83906865266D1C8E00BB65E8 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83906864266D1C8E00BB65E8 /* University.swift */; };
 		83A9928826934419008BD8EE /* AssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928726934419008BD8EE /* AssessmentTableViewCell.swift */; };
-		83A9928F2693451D008BD8EE /* Assessment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A992892693451D008BD8EE /* Assessment+CoreDataClass.swift */; };
-		83A992902693451D008BD8EE /* Assessment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928A2693451D008BD8EE /* Assessment+CoreDataProperties.swift */; };
-		83A992912693451D008BD8EE /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928B2693451D008BD8EE /* Subject+CoreDataClass.swift */; };
-		83A992922693451D008BD8EE /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928C2693451D008BD8EE /* Subject+CoreDataProperties.swift */; };
-		83A992932693451D008BD8EE /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928D2693451D008BD8EE /* Student+CoreDataClass.swift */; };
-		83A992942693451D008BD8EE /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9928E2693451D008BD8EE /* Student+CoreDataProperties.swift */; };
+		83A9929626935D7D008BD8EE /* AssessmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9929526935D7D008BD8EE /* AssessmentsViewController.swift */; };
+		83A992982693605B008BD8EE /* EditAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A992972693605B008BD8EE /* EditAssessmentViewController.swift */; };
+		83A9929A26936148008BD8EE /* AssessmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9929926936148008BD8EE /* AssessmentsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,17 +58,20 @@
 		834C941526496AEB0092771A /* CalculationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8372D729266C666800423EE1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8372D740266C957200423EE1 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
+		838B0A4126940EA3007BBBAA /* Assessment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		838B0A4226940EA3007BBBAA /* Assessment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		838B0A4326940EA3007BBBAA /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		838B0A4426940EA3007BBBAA /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		838B0A4526940EA3007BBBAA /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
+		838B0A4626940EA3007BBBAA /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8390684E266D08BF00BB65E8 /* PresetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsViewController.swift; sourceTree = "<group>"; };
 		83906850266D091500BB65E8 /* WeightingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightingTableViewCell.swift; sourceTree = "<group>"; };
 		83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsCollectionViewCell.swift; sourceTree = "<group>"; };
 		83906864266D1C8E00BB65E8 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
 		83A9928726934419008BD8EE /* AssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentTableViewCell.swift; sourceTree = "<group>"; };
-		83A992892693451D008BD8EE /* Assessment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataClass.swift"; sourceTree = "<group>"; };
-		83A9928A2693451D008BD8EE /* Assessment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		83A9928B2693451D008BD8EE /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		83A9928C2693451D008BD8EE /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		83A9928D2693451D008BD8EE /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
-		83A9928E2693451D008BD8EE /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83A9929526935D7D008BD8EE /* AssessmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentsViewController.swift; sourceTree = "<group>"; };
+		83A992972693605B008BD8EE /* EditAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssessmentViewController.swift; sourceTree = "<group>"; };
+		83A9929926936148008BD8EE /* AssessmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,12 +88,12 @@
 		830B6B19251A127100BD53E4 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				83A992892693451D008BD8EE /* Assessment+CoreDataClass.swift */,
-				83A9928A2693451D008BD8EE /* Assessment+CoreDataProperties.swift */,
-				83A9928B2693451D008BD8EE /* Subject+CoreDataClass.swift */,
-				83A9928C2693451D008BD8EE /* Subject+CoreDataProperties.swift */,
-				83A9928D2693451D008BD8EE /* Student+CoreDataClass.swift */,
-				83A9928E2693451D008BD8EE /* Student+CoreDataProperties.swift */,
+				838B0A4126940EA3007BBBAA /* Assessment+CoreDataClass.swift */,
+				838B0A4226940EA3007BBBAA /* Assessment+CoreDataProperties.swift */,
+				838B0A4326940EA3007BBBAA /* Subject+CoreDataClass.swift */,
+				838B0A4426940EA3007BBBAA /* Subject+CoreDataProperties.swift */,
+				838B0A4526940EA3007BBBAA /* Student+CoreDataClass.swift */,
+				838B0A4626940EA3007BBBAA /* Student+CoreDataProperties.swift */,
 				830B6B1A251A128900BD53E4 /* Academica.xcdatamodeld */,
 			);
 			path = DataModel;
@@ -150,6 +156,9 @@
 				8390684E266D08BF00BB65E8 /* PresetsViewController.swift */,
 				83906852266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift */,
 				83A9928726934419008BD8EE /* AssessmentTableViewCell.swift */,
+				83A9929526935D7D008BD8EE /* AssessmentsViewController.swift */,
+				83A992972693605B008BD8EE /* EditAssessmentViewController.swift */,
+				83A9929926936148008BD8EE /* AssessmentsTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -236,27 +245,30 @@
 			files = (
 				83297FC1250B3E7900EC25FD /* HomeViewController.swift in Sources */,
 				83297FA2250ADC6200EC25FD /* AppDelegate.swift in Sources */,
-				83A992912693451D008BD8EE /* Subject+CoreDataClass.swift in Sources */,
 				830B6B27251A154E00BD53E4 /* DatabaseProtocol.swift in Sources */,
 				830B6B2B251A17DE00BD53E4 /* CoreDataController.swift in Sources */,
+				838B0A4B26940EA3007BBBAA /* Student+CoreDataClass.swift in Sources */,
 				83906851266D091500BB65E8 /* WeightingTableViewCell.swift in Sources */,
+				838B0A4926940EA3007BBBAA /* Subject+CoreDataClass.swift in Sources */,
 				83297FC0250B3E7900EC25FD /* UnitViewController.swift in Sources */,
-				83A992932693451D008BD8EE /* Student+CoreDataClass.swift in Sources */,
 				83906865266D1C8E00BB65E8 /* University.swift in Sources */,
-				83A992942693451D008BD8EE /* Student+CoreDataProperties.swift in Sources */,
+				83A9929A26936148008BD8EE /* AssessmentsTableViewCell.swift in Sources */,
+				83A9929626935D7D008BD8EE /* AssessmentsViewController.swift in Sources */,
 				83297FA4250ADC6200EC25FD /* SceneDelegate.swift in Sources */,
+				838B0A4C26940EA3007BBBAA /* Student+CoreDataProperties.swift in Sources */,
 				83A9928826934419008BD8EE /* AssessmentTableViewCell.swift in Sources */,
+				838B0A4A26940EA3007BBBAA /* Subject+CoreDataProperties.swift in Sources */,
+				838B0A4726940EA3007BBBAA /* Assessment+CoreDataClass.swift in Sources */,
 				832748412608BFF900D8E547 /* SubjectsTableViewController.swift in Sources */,
-				83A992902693451D008BD8EE /* Assessment+CoreDataProperties.swift in Sources */,
 				8372D72A266C666800423EE1 /* SettingsViewController.swift in Sources */,
 				83297FC2250B3E7900EC25FD /* UnitTableViewCell.swift in Sources */,
 				834C941626496AEB0092771A /* CalculationCollectionViewCell.swift in Sources */,
-				83A992922693451D008BD8EE /* Subject+CoreDataProperties.swift in Sources */,
 				8390684F266D08BF00BB65E8 /* PresetsViewController.swift in Sources */,
+				83A992982693605B008BD8EE /* EditAssessmentViewController.swift in Sources */,
 				830B6B29251A171E00BD53E4 /* MulticastDelegate.swift in Sources */,
 				83906853266D0A4C00BB65E8 /* PresetsCollectionViewCell.swift in Sources */,
 				8372D741266C957200423EE1 /* HomeInfoTableViewCell.swift in Sources */,
-				83A9928F2693451D008BD8EE /* Assessment+CoreDataClass.swift in Sources */,
+				838B0A4826940EA3007BBBAA /* Assessment+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

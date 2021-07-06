@@ -73,7 +73,7 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         tableView.reloadData()
     }
     
-    func onAssessmentChange(change: DatabaseChange, subjects: [Assessment]) {
+    func onAssessmentChange(change: DatabaseChange, assessments: [Assessment]) {
         // Do nothing
     }
     
@@ -195,7 +195,7 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
             
         } else if segue.identifier == "newUnitSegue" {
             let destination = segue.destination as! UnitViewController
-            destination.newSubject = true
+            destination.newSubjectFlag = true
             
         }
     }

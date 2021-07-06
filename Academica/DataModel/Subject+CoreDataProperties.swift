@@ -2,7 +2,7 @@
 //  Subject+CoreDataProperties.swift
 //  Academica
 //
-//  Created by Ashwin Gupta on 5/7/21.
+//  Created by Ashwin Gupta on 6/7/21.
 //  Copyright © 2021 Ashwin Gupta. All rights reserved.
 //
 //
@@ -19,12 +19,12 @@ extension Subject {
 
     @NSManaged public var code: String?
     @NSManaged public var grade: String?
+    @NSManaged public var inProgress: Bool
     @NSManaged public var isFavourite: Bool
     @NSManaged public var name: String?
     @NSManaged public var points: Double
     @NSManaged public var score: Double
     @NSManaged public var year: Int16
-    @NSManaged public var inProgress: Bool
     @NSManaged public var assessments: NSSet?
     @NSManaged public var student: NSSet?
 
