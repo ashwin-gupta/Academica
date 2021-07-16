@@ -26,7 +26,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     override init() {
         // Load the Core Data Stack
-        persistentContainer = NSPersistentContainer(name: "Academica")
+        persistentContainer = NSPersistentContainer(name: "AcademicaDataModel")
         persistentContainer.loadPersistentStores() { (description, error) in
             
             if let error = error {
@@ -39,7 +39,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         super.init()
         
-        test()
+//        test()
         
     }
     
@@ -116,45 +116,38 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     
     
-    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment {
+    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, completion: Bool, subject: Subject) -> Assessment {
         
         guard let context = subject.managedObjectContext else {
-            fatalError("Drink without context passed to addAssessmentToCocktail")
+            fatalError("Subject without context passed to addAssessment")
         }
         
         let assessment = NSEntityDescription.insertNewObject(forEntityName: "Assessment", into: context) as! Assessment
         
-//        let dateFormatterGet = DateFormatter()
-//        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//
-//        let dateFormatterPrint = DateFormatter()
-//        dateFormatterPrint.dateFormat = "MMM dd,yyyy"
-//
-//        if let date = dateFormatterGet.date(from: dueDate) {
-//            print(dateFormatterPrint.string(from: date))
-//        } else {
-//           print("There was an error decoding the string")
-//        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         assessment.name = name
         assessment.score = score
-        
+        assessment.subject = subject
         assessment.weighting = weighting
+        assessment.isCompleted = completion
         
+        if !assessment.isCompleted {
+            assessment.dueDate = dateFormatter.date(from: dueDate)
+            
+        }
         
         return assessment
         
     }
     
-    func addAssessmentToSubject(subject: Subject, assessment: Assessment) -> Bool {
-
-        
-        subject.addToAssessments(assessment)
-        return true
-    }
-    
     func deleteAssessment(subject: Subject, assessment: Assessment) {
-        persistentContainer.viewContext.delete(assessment)
+        
+        guard let context = subject.managedObjectContext else {
+            fatalError("Subject without context passed to deleteAssessment")
+        }
+        context.delete(assessment)
         removeAssessmentFromSubject(subject: subject , assessment: assessment)
     }
     
@@ -332,6 +325,17 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return newSubject
     }
     
+    func createEditableAssessment(existingAssessment newAssessment: Assessment?) -> Assessment {
+        if let existingAssesment = newAssessment {
+            return editingContext.object(with: existingAssesment.objectID) as! Assessment
+        }
+        
+        let newAssessment = NSEntityDescription.insertNewObject(forEntityName: "Assessment", into: editingContext) as! Assessment
+        
+        return newAssessment
+        
+    }
+    
     func saveEdits() {
         if editingContext.hasChanges {
             do {
@@ -339,30 +343,17 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             } catch {
                 fatalError("Failed to save data to Core Data: \(error)")
             }
-            
-            save()
         }
     }
-    
-    func save() {
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-            } catch {
-                fatalError("Failed to save data to Core Data: \(error)")
-            }
-        }
-        
-    }
-    
-    func test() {
-        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true, inProgress: true)
-        
-        let testAssessment = addAssessment(name: "TestAssessment", dueDate: "2020", weighting: 40, score: 0, subject: testSubject)
-        
-        
-        
-    }
+//
+//    func test() {
+//        let testSubject = addSubject(name: "Test", code: "TST1000", grade: "HD", points: 6, score: 80, year: Int16(2020), favourite: true, inProgress: true)
+//
+//        let testAssessment = addAssessment(name: "TestAssessment", dueDate: "2020", weighting: 40, score: 0, completion: true, subject: testSubject)
+//
+//
+//
+//    }
     
     
 }

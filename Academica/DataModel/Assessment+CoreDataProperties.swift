@@ -21,24 +21,8 @@ extension Assessment {
     @NSManaged public var name: String?
     @NSManaged public var score: Double
     @NSManaged public var weighting: Double
-    @NSManaged public var subject: NSSet?
-
-}
-
-// MARK: Generated accessors for subject
-extension Assessment {
-
-    @objc(addSubjectObject:)
-    @NSManaged public func addToSubject(_ value: Subject)
-
-    @objc(removeSubjectObject:)
-    @NSManaged public func removeFromSubject(_ value: Subject)
-
-    @objc(addSubject:)
-    @NSManaged public func addToSubject(_ values: NSSet)
-
-    @objc(removeSubject:)
-    @NSManaged public func removeFromSubject(_ values: NSSet)
+    @NSManaged public var isCompleted: Bool
+    @NSManaged public var subject: Subject?
 
 }
 

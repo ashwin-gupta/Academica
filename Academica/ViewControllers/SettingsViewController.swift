@@ -11,6 +11,8 @@ import UIKit
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
+
+    
     @IBOutlet weak var tableView: UITableView!
     
     var settingArray: [String] = []
@@ -22,25 +24,35 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-        settingArray = ["Change University", "Acknowledgements"]
         navigationItem.title = "Settings"
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingArray.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell")!
-        cell.textLabel?.text = settingArray[indexPath.row]
         
-        return cell
+//        if indexPath.row == 0 {
+//
+//
+//        }
+//        else {
+//            let presetsCell = tableView.dequeueReusableCell(withIdentifier: "presetsCell")
+//            presetsCell?.textLabel?.text = "Presets"
+//            return presetsCell!
+//
+//        }
         
+        let ackCell = tableView.dequeueReusableCell(withIdentifier: "toAckCell")
+        ackCell?.textLabel?.text = "Acknowledgements"
+        return ackCell!
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
