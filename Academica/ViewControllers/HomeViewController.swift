@@ -95,6 +95,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if favUnits.isEmpty {
             infoCell.infoLabel?.text = "Add favourite subjects by swiping right on a subject in the subject tab!"
+            infoCell.infoLabel?.textColor = .secondaryLabel
             infoCell.selectionStyle = .none
             tableView.isUserInteractionEnabled = false
             return infoCell
@@ -121,7 +122,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Allows the deletion of advertisements my swiping. Also gives the user feedback on whether they want to delete the advert
+    // Allows the deletion of subjects my swiping. Also gives the user feedback on whether they want to delete the subject
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let unit = units[indexPath.row]
@@ -130,7 +131,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             
             alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (_) in
-                // Removing the advertisement from teh user
+                // Removing the subject from the user
                 self.databaseController?.deleteSubject(subject: unit)
                 self.unitTableView.reloadData()
             }))
@@ -228,7 +229,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 favourites.append(unit)
             }
         }
-        
         return favourites
         
     }
@@ -240,6 +240,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         creditSum = 0
         
         for subject in units {
+            
+            
             marksSum = (subject.score * subject.points) + marksSum
             creditSum = subject.points + creditSum
 
@@ -252,21 +254,58 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func gpa() -> String {
         
         for subject in units {
-            
-            creditSum = subject.points + creditSum
-            
+
             switch subject.grade {
             case "D":
                 gpaSum = (subject.points * 3) + gpaSum
+                creditSum = subject.points + creditSum
+                
             case "C":
                 gpaSum = (subject.points * 2) + gpaSum
+                creditSum = subject.points + creditSum
+                
             case "P":
                 gpaSum = (subject.points * 1) + gpaSum
+                creditSum = subject.points + creditSum
+                
             case "N":
+                gpaSum = (subject.points * 0.7) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "NH":
                 gpaSum = (subject.points * 0.3) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "WN":
+                gpaSum = (subject.points * 0.3) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "SFR":
+                break
+                // Nothing
+            
+            case "NSR":
+                break
+            
+            case "HI":
+                gpaSum = (subject.points * 4) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "HIIA":
+                gpaSum = (subject.points * 3) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "HIIB":
+                gpaSum = (subject.points * 2) + gpaSum
+                creditSum = subject.points + creditSum
+                
+            case "HIII":
+                gpaSum = (subject.points * 1) + gpaSum
+                creditSum = subject.points + creditSum
                 
             default:
                 gpaSum = (subject.points * 4) + gpaSum
+                creditSum = subject.points + creditSum
             }
         }
         
@@ -276,22 +315,36 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func monashWam() -> String {
         var marksSum: Double = 0
+        var wam: String = ""
         gpaSum = 0
         creditSum = 0
         wamCreditSum = 0
         
         for subject in units {
-            if subject.code?.firstIndex(of: "1") == firstYearUnit.firstIndex(of: "1") {
-                marksSum = (subject.score * subject.points)/2 + marksSum
-                wamCreditSum = subject.points/2 + wamCreditSum
+            let grade = subject.grade
+            
+            if grade == "NSR" || grade == "SFR" {
                 
+                //do nothing
             } else {
-                marksSum = (subject.score * subject.points) + marksSum
-                wamCreditSum = subject.points + wamCreditSum
+                if subject.code?.firstIndex(of: "1") == firstYearUnit.firstIndex(of: "1") {
+                    marksSum = (subject.score * subject.points)/2 + marksSum
+                    wamCreditSum = subject.points/2 + wamCreditSum
+                    
+                } else {
+                    marksSum = (subject.score * subject.points) + marksSum
+                    wamCreditSum = subject.points + wamCreditSum
+                }
+                
             }
+
         }
         
-        let wam = String(format: "%.3f", marksSum/wamCreditSum)
+        wam = String(format: "%.3f", marksSum/wamCreditSum)
+        
+        if wam == "nan" {
+            wam = "0.000"
+        }
         return wam
     }
     

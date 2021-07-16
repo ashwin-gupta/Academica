@@ -35,7 +35,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func addSubject(name: String, code: String, grade: String, points: Double, score: Double, year: Int16, favourite: Bool, inProgress: Bool) -> Subject
 
-    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, subject: Subject) -> Assessment
+    func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, completion: Bool, subject: Subject) -> Assessment
     
     func addStudent(name: String) -> Student
     
@@ -44,6 +44,8 @@ protocol DatabaseProtocol: AnyObject {
     func deleteAssessment(subject: Subject, assessment: Assessment)
     
     func createEditableSubject(existingSubject newSubject: Subject?) -> Subject
+    
+    func createEditableAssessment(existingAssessment newAssessment: Assessment?) -> Assessment
     
     func deleteSubject(subject: Subject)
     
@@ -56,6 +58,7 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     
     func removeListener(listener: DatabaseListener)
-
+    
+    func saveEdits()
     
 }

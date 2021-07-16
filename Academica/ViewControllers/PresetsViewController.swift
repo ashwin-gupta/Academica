@@ -94,10 +94,13 @@ class PresetsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = uniCollectionView.dequeueReusableCell(withReuseIdentifier: "uniCell", for: indexPath) as! PresetsCollectionViewCell
         
-        cell.universityImage.image = UIImage(named: universities[indexPath.row].name)
+        cell.uniNameLabel?.text = universities[indexPath.row].name
         
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//    }
     
     func onStudentChange(change: DatabaseChange, studentSubjects: [Subject]) {
         //Do Nothing

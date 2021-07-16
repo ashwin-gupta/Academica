@@ -11,7 +11,7 @@ import UIKit
 class PresetsCollectionViewCell: UICollectionViewCell {
     
     
-    @IBOutlet weak var universityImage: UIImageView!
+    @IBOutlet weak var uniNameLabel: UILabel!
     
     
     // Used for giving user feedback on what they have selected

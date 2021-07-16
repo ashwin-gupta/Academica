@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
+class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var unitCodeInput: UITextField!
     
@@ -30,6 +30,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var newSubjectFlag: Bool = false
     var subject: Subject?
+    var unchangedSubject: Subject?
     var assessments: [Assessment] = []
     var grades : [String] = [String]()
     
@@ -41,12 +42,23 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.assessmentTableView.delegate = self
         self.assessmentTableView.dataSource = self
         
+        self.scoreInput.delegate = self
+        self.yearInput.delegate = self
+        self.creditInput.delegate = self
+        
         self.gradePicker.delegate = self
         self.gradePicker.dataSource = self
         
-        grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)"]
+        grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)", "First Class Honours (HI)", "Second Class Honours Division A (HIIA)", "Second Class Honours Division B (HIIB)", "Third Class Honours (HIII)", "Not Satisfied Requirements (NSR)"]
         
-        if newSubjectFlag == false {
+        
+//        self.navigationItem.hidesBackButton = true
+//        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(UnitViewController.back(sender:)))
+//        self.navigationItem.leftBarButtonItem = newBackButton
+        
+        
+        if subject != nil {
+            navigationItem.title = subject?.name
             fillInformation(oldSubject: subject!)
         } else {
             progressControl.selectedSegmentIndex = 1
@@ -59,18 +71,23 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let databaseController = databaseController else {
             fatalError("No database controller.")
         }
-        
-        
-        navigationItem.title = (subject != nil) ? "\(subject?.name)" : "New Subject"
         subject = databaseController.createEditableSubject(existingSubject: subject)
-        
+        unchangedSubject = subject
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
         progressControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
         
-        
-//        assessments = (databaseController?.fetchSubjectAssessments(subject: subject!))!
-//        debugPrint(assessments.count)
+
     }
+    
+   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        assessmentTableView.reloadData()
+        assessments = subject!.assessments!.allObjects as! [Assessment]
+        
+    }
+    
+    
     
     // Sets the details of the pre-existing subject
     func fillInformation (oldSubject: Subject) {
@@ -100,6 +117,16 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             gradePicker.selectRow(6, inComponent: 0, animated: true)
         case "SFR":
             gradePicker.selectRow(7, inComponent: 0, animated: true)
+        case "HI":
+            gradePicker.selectRow(8, inComponent: 0, animated: true)
+        case "HIIA":
+            gradePicker.selectRow(9, inComponent: 0, animated: true)
+        case "HIIB":
+            gradePicker.selectRow(10, inComponent: 0, animated: true)
+        case "HIII":
+            gradePicker.selectRow(11, inComponent: 0, animated: true)
+        case "NSR":
+            gradePicker.selectRow(12, inComponent: 0, animated: true)
         default:
             gradePicker.selectRow(0, inComponent: 0, animated: true)
         }
@@ -135,6 +162,16 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
                 grade = "NH"
             case 7:
                 grade = "SFR"
+            case 8:
+                grade = "HI"
+            case 9:
+                grade = "HIIA"
+            case 10:
+                grade = "HIIB"
+            case 11:
+                grade = "HIII"
+            case 12:
+                grade = "NSR"
             default:
                 grade = "HD"
             }
@@ -147,19 +184,18 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             print(newSubjectFlag)
             let favourite = false
             
-            if newSubjectFlag {
-                let _ = databaseController?.addSubject(name: name!, code: code!, grade: grade, points: points!, score: score!, year: year!, favourite: favourite, inProgress: inProgress)
-                
-            } else {
-                subject?.name = name
-                subject?.code = code
-                subject?.score = score!
-                subject?.points = points!
-                subject?.year = year!
-                subject?.grade = grade
-                subject?.inProgress = inProgress
-                
-            }
+            subject?.name = name
+            subject?.code = code
+            subject?.grade = grade
+            subject?.points = points!
+            subject?.score = score!
+            subject?.year = year!
+            subject?.isFavourite = favourite
+            subject?.inProgress = inProgress
+            
+            newSubjectFlag = false
+            databaseController?.saveEdits()
+            databaseController?.cleanup()
             
             navigationController?.popViewController(animated: true)
             
@@ -230,6 +266,68 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        switch textField {
+        case scoreInput:
+            let maxLength = 3
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            if string.isEmpty || string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil {
+                return newString.length <= maxLength
+            } else {
+                return false
+            }
+            
+            
+        case creditInput:
+            let maxLength = 2
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            if string.isEmpty || string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil {
+                return newString.length <= maxLength
+            } else {
+                return false
+            }
+        default:
+            let maxLength = 4
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            if string.isEmpty || string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil {
+                return newString.length <= maxLength
+            } else {
+                return false
+            }
+            
+        }
+    }
+        
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == scoreInput && scoreInput.text != "" {
+            
+            
+            let score = Double(scoreInput.text!)!
+            
+            if score >= 80 {
+                gradePicker.selectRow(0, inComponent: 0, animated: true)
+                
+            } else if score >= 70 && score < 80 {
+                gradePicker.selectRow(1, inComponent: 0, animated: true)
+            } else if score >= 60 && score < 70 {
+                gradePicker.selectRow(2, inComponent: 0, animated: true)
+            } else if score >= 50 && score < 60 {
+                gradePicker.selectRow(3, inComponent: 0, animated: true)
+            } else if score < 50 {
+                gradePicker.selectRow(4, inComponent: 0, animated: true)
+            }
+            // do what is needed
+        }
+    }
+    
     // MARK: - TableView Delegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -251,6 +349,16 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if checkInputValidity() == false && newSubjectFlag == true {
+//            displayErrorMessage("Please fill all fields and press save before continuing.")
+//
+//
+//        } else {
+//
+//            performSegue(withIdentifier: "viewAllAssessmentsSegue", sender: self)
+//        }
+//    }
     
     // MARK: - Navigation
 
@@ -258,7 +366,6 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewAllAssessmentsSegue" {
             let destination = segue.destination as! AssessmentsViewController
-            
             destination.subject = subject!
         
         }
@@ -266,3 +373,4 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
 }
+

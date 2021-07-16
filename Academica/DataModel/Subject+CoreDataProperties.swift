@@ -17,33 +17,16 @@ extension Subject {
         return NSFetchRequest<Subject>(entityName: "Subject")
     }
 
-    @NSManaged public var code: String?
-    @NSManaged public var grade: String?
+    @NSManaged public var name: String?
     @NSManaged public var inProgress: Bool
     @NSManaged public var isFavourite: Bool
-    @NSManaged public var name: String?
-    @NSManaged public var points: Double
     @NSManaged public var score: Double
+    @NSManaged public var points: Double
     @NSManaged public var year: Int16
-    @NSManaged public var assessments: NSSet?
+    @NSManaged public var code: String?
+    @NSManaged public var grade: String?
     @NSManaged public var student: NSSet?
-
-}
-
-// MARK: Generated accessors for assessments
-extension Subject {
-
-    @objc(addAssessmentsObject:)
-    @NSManaged public func addToAssessments(_ value: Assessment)
-
-    @objc(removeAssessmentsObject:)
-    @NSManaged public func removeFromAssessments(_ value: Assessment)
-
-    @objc(addAssessments:)
-    @NSManaged public func addToAssessments(_ values: NSSet)
-
-    @objc(removeAssessments:)
-    @NSManaged public func removeFromAssessments(_ values: NSSet)
+    @NSManaged public var assessments: NSSet?
 
 }
 
@@ -61,6 +44,23 @@ extension Subject {
 
     @objc(removeStudent:)
     @NSManaged public func removeFromStudent(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for assessments
+extension Subject {
+
+    @objc(addAssessmentsObject:)
+    @NSManaged public func addToAssessments(_ value: Assessment)
+
+    @objc(removeAssessmentsObject:)
+    @NSManaged public func removeFromAssessments(_ value: Assessment)
+
+    @objc(addAssessments:)
+    @NSManaged public func addToAssessments(_ values: NSSet)
+
+    @objc(removeAssessments:)
+    @NSManaged public func removeFromAssessments(_ values: NSSet)
 
 }
 
