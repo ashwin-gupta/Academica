@@ -12,15 +12,26 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var databaseController: DatabaseProtocol?
+    var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         databaseController = CoreDataController()
-        
+//        if !UserDefaults.standard.bool(forKey: "whatsNew") {
+//                 UserDefaults.standard.set(true, forKey: "whatsNew")
+//
+//                 let storyboard = UIStoryboard(name: "Intro", bundle: nil)
+//                 let viewController = storyboard.instantiateViewController(withIdentifier: "WhatsNewViewController")
+//                 self.window?.rootViewController = viewController
+//                 self.window?.makeKeyAndVisible()
+//            }
+//
         return true
+  
     }
+
 
     // MARK: UISceneSession Lifecycle
 

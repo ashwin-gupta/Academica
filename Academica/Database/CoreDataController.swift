@@ -23,6 +23,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         NSFetchedResultsController<Assessment>?
     var SubjectAssessmentsFetchedResultsController:
         NSFetchedResultsController<Assessment>?
+    var allUniversitiesFetchedResultsController: NSFetchedResultsController<University>?
     
     override init() {
         // Load the Core Data Stack
@@ -39,7 +40,14 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         
         super.init()
         
-//        test()
+        print(fetchAllUniversities())
+        
+//        if fetchAllUniversities().count == 0 {
+//            createUniversities()
+//            print(fetchAllUniversities())
+//
+//        }
+
         
     }
     
@@ -114,6 +122,24 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return true
     }
     
+    func addUniversity(name: String, gradeName: [String], weights: [Double], grades: [String], isSelected: Bool) -> University {
+        let university = NSEntityDescription.insertNewObject(forEntityName: "University", into: persistentContainer.viewContext) as! University
+        
+        
+        
+        university.name = name
+        university.grades = grades
+        university.gradeName = gradeName
+        university.weights = weights
+        university.isSelected = isSelected
+        defaultStudent.addToUniversity(university)
+        debugPrint(university)
+        
+        return university
+    }
+    
+
+    
     
     
     func addAssessment(name: String, dueDate: String, weighting: Double, score: Double, completion: Bool, subject: Subject) -> Assessment {
@@ -151,6 +177,11 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         removeAssessmentFromSubject(subject: subject , assessment: assessment)
     }
     
+    func deleteUniversity(university: University) {
+        defaultStudent.removeFromUniversity(university)
+        
+    }
+    
     func removeAssessmentFromSubject(subject: Subject, assessment: Assessment) {
         subject.removeFromAssessments(assessment)
     }
@@ -184,6 +215,10 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if listener.listenerType == .assessment || listener.listenerType == .all {
             listener.onAssessmentChange(change: .update, assessments: fetchAllAssessments())
         }
+        
+        if listener.listenerType == .university || listener.listenerType == .all {
+            listener.onUniversityChange(change: .update, university: fetchAllUniversities())
+        }
     }
     
     func removeListener(listener: DatabaseListener) {
@@ -210,6 +245,13 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             listeners.invoke { (listener) in
                 if listener.listenerType == .assessment || listener.listenerType == .all {
                     listener.onAssessmentChange(change: .update, assessments: fetchAllAssessments())
+                }
+            }
+        } else if controller == allUniversitiesFetchedResultsController {
+            listeners.invoke { (listener) in
+                if listener.listenerType == .university || listener.listenerType == .all {
+                    listener.onUniversityChange(change: .update, university: fetchAllUniversities())
+                    
                 }
             }
         }
@@ -247,6 +289,40 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
 //        debugPrint(subjects)
         
         return subjects
+        
+        
+    }
+    
+    func fetchAllUniversities() -> [University] {
+        // if results controller not currenty initialised
+        if allUniversitiesFetchedResultsController == nil {
+            let fetchRequest: NSFetchRequest<University> = University.fetchRequest()
+            
+            // Sort by name
+            let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            fetchRequest.sortDescriptors = [nameSortDescriptor]
+            
+            // Initialize Results Controller
+            allUniversitiesFetchedResultsController = NSFetchedResultsController<University>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+            
+            // Set this class to be the results delegate
+            allSubjectsFetchedResultsController?.delegate = self
+            
+            do {
+                try allSubjectsFetchedResultsController?.performFetch()
+            } catch {
+                print("Fetch Request Failed: \(error)")
+            }
+        }
+        
+        var universities = [University]()
+        if allUniversitiesFetchedResultsController?.fetchedObjects != nil {
+            universities = (allUniversitiesFetchedResultsController?.fetchedObjects)!
+        }
+        
+        debugPrint(universities)
+        
+        return universities
         
         
     }
@@ -344,6 +420,21 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 fatalError("Failed to save data to Core Data: \(error)")
             }
         }
+    }
+    
+    func createUniversities() {
+        
+        let monashGradeNames = ["High Distinction", "Distinction", "Credit", "Pass", "Fail", "Withdrawn Fail", "Hurdle Fail", "Satisfied Faculty Requirements", "First Class Honours", "Second Class Honours Division A", "Second Class Honours Division B", "Third Class Honours", "Not Satisfied Requirements"]
+        
+        let monashGrades = ["HD", "D", "C", "P", "N", "WN", "NH", "SFR", "HI", "HIIA", "HIIB", "HIII", "NSR"]
+        
+        let monashWeights = [4.0, 3.0, 2.0, 1.0, 0.7, 0.3, 0.3, 0.0, 0.0, 4.0, 3.0, 2.0, 1.0]
+        
+        let _ = addUniversity(name: "Monash University", gradeName: monashGradeNames, weights: monashWeights, grades: monashGrades, isSelected: true)
+        
+        
+        
+        
     }
 //
 //    func test() {

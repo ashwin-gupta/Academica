@@ -9,8 +9,6 @@
 import UIKit
 
 class SubjectsTableViewController: UITableViewController, DatabaseListener {
-
-    
     
     var listenerType: ListenerType = .all
     var studentSubjects: [Subject] = []
@@ -78,7 +76,9 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         // Do nothing
     }
     
-    
+    func onUniversityChange(change: DatabaseChange, university: [University]) {
+        //do nothing
+    }
     
     //MARK: - Table View Functions
 
@@ -86,11 +86,21 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
         let cell = tableView.dequeueReusableCell(withIdentifier: "unitCell") as! UnitTableViewCell
         
         let subject = orderedSubjects[indexPath.section][indexPath.row]
+            
+        
+        if subject.inProgress {
+            cell.gradeLabel.text = "In Progress"
+            cell.gradeLabel.textColor = .secondaryLabel
+            cell.scoreLabel.text = ""
+        } else {
             cell.gradeLabel.text = subject.grade
+            cell.gradeLabel.textColor = .label
             cell.scoreLabel.text = String(format: "%.0f", subject.score)
-            cell.unitLabel.text = subject.code
-            cell.nameLabel.text = subject.name
-            return cell
+        }
+        
+        cell.unitLabel.text = subject.code
+        cell.nameLabel.text = subject.name
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,16 +153,7 @@ class SubjectsTableViewController: UITableViewController, DatabaseListener {
                 unit.isFavourite = false
                 debugPrint("Added to favourites")
             }
-        case false:
-            favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
-                print("Favourite Action Tapped")
-                unit.isFavourite = true
-                debugPrint("Added to favourites")
-                
-            }
-            favAction.backgroundColor = .systemYellow
             
-        
         default:
             favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
                 print("Favourite Action Tapped")

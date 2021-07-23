@@ -2,7 +2,7 @@
 //  Assessment+CoreDataProperties.swift
 //  Academica
 //
-//  Created by Ashwin Gupta on 6/7/21.
+//  Created by Ashwin Gupta on 22/7/21.
 //  Copyright © 2021 Ashwin Gupta. All rights reserved.
 //
 //
@@ -18,10 +18,10 @@ extension Assessment {
     }
 
     @NSManaged public var dueDate: Date?
+    @NSManaged public var isCompleted: Bool
     @NSManaged public var name: String?
     @NSManaged public var score: Double
     @NSManaged public var weighting: Double
-    @NSManaged public var isCompleted: Bool
     @NSManaged public var subject: Subject?
 
 }
