@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
-    var settingArray: [String] = []
+    let settingsArray = ["Acknowledgements", "Notifications", "Calculation Settings"]
     
 
     override func viewDidLoad() {
@@ -30,24 +30,32 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.row == 0 {
-//
-//
-//        }
-//        else {
-//            let presetsCell = tableView.dequeueReusableCell(withIdentifier: "presetsCell")
-//            presetsCell?.textLabel?.text = "Presets"
-//            return presetsCell!
-//
-//        }
         
-        let ackCell = tableView.dequeueReusableCell(withIdentifier: "toAckCell")
-        ackCell?.textLabel?.text = "Acknowledgements"
-        return ackCell!
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "acknowledgementsCell")
+        
+            cell?.textLabel?.text = settingsArray[indexPath.row]
+            
+            return cell!
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "notificationsCell")
+        
+            cell?.textLabel?.text = settingsArray[indexPath.row]
+            
+            return cell!
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "calculationCell")
+        
+            cell?.textLabel?.text = settingsArray[indexPath.row]
+            
+            return cell!
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return settingsArray.count
     }
 
     override func viewWillAppear(_ animated: Bool) {

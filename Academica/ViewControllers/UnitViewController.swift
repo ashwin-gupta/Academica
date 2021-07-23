@@ -49,13 +49,10 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.gradePicker.delegate = self
         self.gradePicker.dataSource = self
         
-        grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)", "First Class Honours (HI)", "Second Class Honours Division A (HIIA)", "Second Class Honours Division B (HIIB)", "Third Class Honours (HIII)", "Not Satisfied Requirements (NSR)"]
+        progressControl.addTarget(self, action: #selector(UnitViewController.indexChanged(_:)), for: .valueChanged)
         
-        
-//        self.navigationItem.hidesBackButton = true
-//        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(UnitViewController.back(sender:)))
-//        self.navigationItem.leftBarButtonItem = newBackButton
-        
+        grades = ["High Distinction (HD)", "Distinction (D)", "Credit (C)", "Pass (P)", "Fail (N)", "Withdrawn Fail (WN)", "Hurdle Fail (NH)", "Satisfied Faculty Requirements (SFR)", "First Class Honours (HI)", "Second Class Honours Division A (HIIA)", "Second Class Honours Division B (HIIB)", "Third Class Honours (HIII)", "Not Satisfied Requirements (NSR)", "In Progress (N/A)"]
+
         
         if subject != nil {
             navigationItem.title = subject?.name
@@ -75,8 +72,14 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         unchangedSubject = subject
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "labelInverse")]
         progressControl.setTitleTextAttributes(titleTextAttributes as [NSAttributedString.Key : Any], for: .selected)
-        
-
+    }
+    
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+        if progressControl.selectedSegmentIndex == 0 {
+            gradePicker.selectRow(13, inComponent: 0, animated: true)
+        } else if progressControl.selectedSegmentIndex == 1 {
+            selectGradeFromScore()
+        }
     }
     
    
@@ -95,14 +98,26 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         nameTextField.text = oldSubject.name
         unitCodeInput.text = oldSubject.code
         yearInput.text = String(oldSubject.year)
-        scoreInput.text = String(format: "%.0f", oldSubject.score)
+        
         creditInput.text = String(format: "%.0f", oldSubject.points)
         
         if subject?.inProgress == true {
             progressControl.selectedSegmentIndex = 0
+            gradePicker.selectRow(13, inComponent: 0, animated: true)
+            if oldSubject.score == -1 {
+                scoreInput.text = ""
+                
+            } else {
+                scoreInput.text = String(format: "%.0f", oldSubject.score)
+            }
+        } else {
+            progressControl?.selectedSegmentIndex = 1
+            scoreInput.text = String(format: "%.0f", oldSubject.score)
         }
         
         switch oldSubject.grade {
+        case "HD":
+            gradePicker.selectRow(0, inComponent: 0, animated: true)
         case "D":
             gradePicker.selectRow(1, inComponent: 0, animated: true)
         case "C":
@@ -127,8 +142,10 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             gradePicker.selectRow(11, inComponent: 0, animated: true)
         case "NSR":
             gradePicker.selectRow(12, inComponent: 0, animated: true)
+        case "N/A":
+            gradePicker.selectRow(13, inComponent: 0, animated: true)
         default:
-            gradePicker.selectRow(0, inComponent: 0, animated: true)
+            gradePicker.selectRow(13, inComponent: 0, animated: true)
         }
         
         
@@ -141,7 +158,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         if checkInputValidity() == true {
             let name = nameTextField.text
             let code = unitCodeInput.text
-            let score = Double(scoreInput.text!)
+//            let score = Double(scoreInput.text!)
             let points = Double(creditInput.text!)
             let year = Int16(yearInput.text!)
             
@@ -172,13 +189,27 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
                 grade = "HIII"
             case 12:
                 grade = "NSR"
+            case 13:
+                grade = "N/A"
             default:
                 grade = "HD"
             }
             
-            var inProgress = false
+            
             if progressControl.selectedSegmentIndex == 0 {
-                inProgress = true
+                
+                subject?.inProgress = true
+                
+                if scoreInput.text == "" {
+                    subject?.score = -1
+                } else {
+                    subject?.score = Double(scoreInput.text!)!
+                }
+                
+            } else {
+                subject?.inProgress = false
+                subject?.score = Double(scoreInput.text!)!
+                
             }
             
             print(newSubjectFlag)
@@ -188,10 +219,8 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             subject?.code = code
             subject?.grade = grade
             subject?.points = points!
-            subject?.score = score!
             subject?.year = year!
             subject?.isFavourite = favourite
-            subject?.inProgress = inProgress
             
             newSubjectFlag = false
             databaseController?.saveEdits()
@@ -239,17 +268,24 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             return false
         }
         
-        guard let score = Double(scoreInput.text!) else {
-            displayErrorMessage("Please enter a score!")
-            return false
+        if progressControl.selectedSegmentIndex == 0 {
+            
+            return true
+            
+        } else {
+            guard Double(scoreInput.text!) != nil else {
+                displayErrorMessage("Please enter a score!")
+                return false
+            }
         }
+
         
-        guard let points = Double(creditInput.text!) else {
+        guard Double(creditInput.text!) != nil else {
             displayErrorMessage("Please enter credit points!")
             return false
         }
         
-        guard let year = Int16(yearInput.text!) else {
+        guard Int16(yearInput.text!) != nil else {
             displayErrorMessage("Please enter a year!")
             return false
         }
@@ -307,8 +343,20 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == scoreInput && scoreInput.text != "" {
+        if textField == scoreInput {
+            selectGradeFromScore()
             
+        }
+        
+    }
+    
+    func selectGradeFromScore() {
+        
+        if scoreInput.text == "" {
+            
+            gradePicker.selectRow(13, inComponent: 0, animated: true)
+            
+        } else {
             
             let score = Double(scoreInput.text!)!
             
@@ -324,8 +372,9 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else if score < 50 {
                 gradePicker.selectRow(4, inComponent: 0, animated: true)
             }
-            // do what is needed
+            
         }
+        
     }
     
     // MARK: - TableView Delegates
@@ -349,16 +398,6 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if checkInputValidity() == false && newSubjectFlag == true {
-//            displayErrorMessage("Please fill all fields and press save before continuing.")
-//
-//
-//        } else {
-//
-//            performSegue(withIdentifier: "viewAllAssessmentsSegue", sender: self)
-//        }
-//    }
     
     // MARK: - Navigation
 

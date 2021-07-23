@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 // Extension for all View Controllers to allow users to tap out of a text field by tapping the background
 extension UIViewController {
@@ -42,6 +43,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var wamCreditSum: Double = 0
     var units: [Subject] = []
     var favUnits: [Subject] = []
+    var calcStyle: String?
     
 
     
@@ -58,6 +60,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.calcCollectionView.delegate = self
         self.calcCollectionView.dataSource = self
         
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+        }
+        
+        
+        calcStyle = defaults.string(forKey: "calcStyle")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let calcVC = storyboard.instantiateViewController(
+//                   withIdentifier: "CalculationPopUpViewController")
+        let newVC = storyboard.instantiateViewController(identifier: "WhatsNewViewController")
+         
+        // Use the popover presentation style for your view controller.
+//        calcVC.modalPresentationStyle = .popover
+        newVC.modalPresentationStyle = .popover
+
+
+        // Present the view controller (in a popover).
+//        self.present(calcVC, animated: true) {
+//           // The popover is visible.
+//        }
+        self.present(newVC, animated: true) {
+            //Pop over is visible
+        }
         
     }
     
@@ -103,8 +129,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             let subject = favUnits[indexPath.row]
             tableView.isUserInteractionEnabled = true
-            cell.gradeLabel.text = subject.grade
-            cell.scoreLabel.text = String(format: "%.0f", subject.score)
+            
+            if subject.inProgress {
+                cell.scoreLabel.text = ""
+                cell.gradeLabel.text = "In Progress"
+                cell.gradeLabel.textColor = .secondaryLabel
+                
+            } else {
+                cell.gradeLabel.text = subject.grade
+                cell.gradeLabel.textColor = .label
+                cell.scoreLabel.text = String(format: "%.0f", subject.score)
+                
+            }
+            
             cell.unitLabel.text = subject.code
             cell.nameLabel.text = subject.name
             
@@ -143,6 +180,39 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     }
     
+     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let unit = favUnits[indexPath.row]
+        
+        var favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+            print("Favourite Action Tapped")
+            debugPrint("Added to favourites")
+            
+        }
+        
+        switch unit.isFavourite {
+        case true:
+             favAction = UIContextualAction(style: .destructive, title: "Unfavourite") { (action, view, handler) in
+                print("Favourite Action Tapped")
+                unit.isFavourite = false
+                debugPrint("Added to favourites")
+            }
+            
+        default:
+            favAction = UIContextualAction(style: .normal, title: "Favourite") { (action, view, handler) in
+                print("Favourite Action Tapped")
+                unit.isFavourite = true
+                debugPrint("Added to favourites")
+                
+            }
+            favAction.backgroundColor = .systemYellow
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [favAction])
+        
+        return configuration
+        
+    }
+    
 
     // MARK: - Collection View Functions
     
@@ -163,9 +233,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if units.isEmpty {
             cell.gpaWamLabel.text = "No Subjects!"
             cell.calcLabel.text = "Click + to add a subject!"
+            cell.isUserInteractionEnabled = true
             
         } else {
-            
+            cell.isUserInteractionEnabled = false
             // Setting GPA and WAM Labels
             switch indexPath.row {
             case 0:
@@ -174,7 +245,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             case 1:
                 cell.gpaWamLabel.text = "WAM"
-                cell.calcLabel.text = monashWam()
+                if calcStyle == "Standard" {
+                    cell.calcLabel.text = wamCalculate()
+                } else {
+                    cell.calcLabel.text = monashWam()
+                }
+                
             
             default:
                 cell.gpaWamLabel.text = "GPA"
@@ -192,6 +268,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if units.isEmpty {
             itemsPerRow = 1
             paddingSpace = 0
+            
         } else {
             itemsPerRow = 2
             paddingSpace = sectionInsets.left * (itemsPerRow)
@@ -221,6 +298,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do nothing
     }
     
+    func onUniversityChange(change: DatabaseChange, university: [University]) {
+        // Do nothing
+    }
+    
+    
+    // MARK: - Subject Data Processing
     func getFavouriteSubjects(allUnits: [Subject]) -> [Subject] {
         var favourites: [Subject] = []
         
@@ -234,6 +317,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    // MARK: - Calculations
+    
     func wamCalculate() -> String {
         var marksSum: Double = 0
         gpaSum = 0
@@ -241,75 +326,88 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         for subject in units {
             
-            
-            marksSum = (subject.score * subject.points) + marksSum
-            creditSum = subject.points + creditSum
+            if !subject.inProgress {
+                marksSum = (subject.score * subject.points) + marksSum
+                creditSum = subject.points + creditSum
+            }
 
         }
         
-        let wam = String(format: "%.4f", marksSum/creditSum)
+        var wam = String(format: "%.3f", marksSum/creditSum)
+        
+        if wam == "nan" {
+            wam = "0.000"
+        }
         return wam
     }
     
     func gpa() -> String {
         
         for subject in units {
-
-            switch subject.grade {
-            case "D":
-                gpaSum = (subject.points * 3) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "C":
-                gpaSum = (subject.points * 2) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "P":
-                gpaSum = (subject.points * 1) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "N":
-                gpaSum = (subject.points * 0.7) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "NH":
-                gpaSum = (subject.points * 0.3) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "WN":
-                gpaSum = (subject.points * 0.3) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            case "SFR":
-                break
-                // Nothing
             
-            case "NSR":
-                break
-            
-            case "HI":
-                gpaSum = (subject.points * 4) + gpaSum
-                creditSum = subject.points + creditSum
+            if !subject.inProgress {
                 
-            case "HIIA":
-                gpaSum = (subject.points * 3) + gpaSum
-                creditSum = subject.points + creditSum
+                switch subject.grade {
+                case "D":
+                    gpaSum = (subject.points * 3) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "C":
+                    gpaSum = (subject.points * 2) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "P":
+                    gpaSum = (subject.points * 1) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "N":
+                    gpaSum = (subject.points * 0.7) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "NH":
+                    gpaSum = (subject.points * 0.3) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "WN":
+                    gpaSum = (subject.points * 0.3) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "SFR":
+                    break
+                    // Nothing
                 
-            case "HIIB":
-                gpaSum = (subject.points * 2) + gpaSum
-                creditSum = subject.points + creditSum
+                case "NSR":
+                    break
                 
-            case "HIII":
-                gpaSum = (subject.points * 1) + gpaSum
-                creditSum = subject.points + creditSum
-                
-            default:
-                gpaSum = (subject.points * 4) + gpaSum
-                creditSum = subject.points + creditSum
+                case "HI":
+                    gpaSum = (subject.points * 4) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "HIIA":
+                    gpaSum = (subject.points * 3) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "HIIB":
+                    gpaSum = (subject.points * 2) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                case "HIII":
+                    gpaSum = (subject.points * 1) + gpaSum
+                    creditSum = subject.points + creditSum
+                    
+                default:
+                    gpaSum = (subject.points * 4) + gpaSum
+                    creditSum = subject.points + creditSum
+                }
             }
+ 
         }
         
-        let gpaString = String(format: "%.3f", gpaSum/creditSum)
+        var gpaString = String(format: "%.3f", gpaSum/creditSum)
+        
+        if gpaString == "nan" {
+            gpaString = "0.000"
+        }
         return gpaString
     }
     
@@ -323,7 +421,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         for subject in units {
             let grade = subject.grade
             
-            if grade == "NSR" || grade == "SFR" {
+            if grade == "NSR" || grade == "SFR" || subject.inProgress {
                 
                 //do nothing
             } else {
@@ -359,6 +457,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else if segue.identifier == "oldSubjectSegue" {
             let destination = segue.destination as! UnitViewController
             destination.subject = favUnits[unitTableView.indexPathForSelectedRow!.row]
+            
+        } else if segue.identifier == "newSubjectCellSegue" {
+            let destination = segue.destination as! UnitViewController
+            destination.newSubjectFlag = true
             
         }
     }

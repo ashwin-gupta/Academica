@@ -36,27 +36,27 @@ class AcknowledgementsTableViewController: UITableViewController {
         if indexPath.section == 0 {
             cell.ackImage.image = UIImage(named: "LaunchIcon")
             cell.name.text = "Matthew Chen"
-            cell.ackLink.text = "https://www.matthewcychen.com"
+            cell.ackLink.text = "www.matthewcychen.com"
         } else {
             switch indexPath.row {
             case 0:
                 cell.ackImage.image = UIImage(named: "graduationcap.fill")
                 cell.name.text = "Icons8"
-                cell.ackLink.text = "https://icons8.com/icon/79387/graduation-cap"
+                cell.ackLink.text = "www.icons8.com/icon/79387/graduation-cap"
                 
             case 1:
                 cell.ackImage.image = UIImage(named: "book.closed.fill")
                 cell.name.text = "Icons8"
-                cell.ackLink.text = "https://icons8.com/icon/59739/book"
+                cell.ackLink.text = "www.icons8.com/icon/59739/book"
                 
             case 2:
                 cell.ackImage.image = UIImage(named: "gearshape.fill")
                 cell.name.text = "Icons8"
-                cell.ackLink.text = "https://icons8.com/icon/59996/settings"
+                cell.ackLink.text = "www.icons8.com/icon/59996/settings"
             default:
                 cell.ackImage.image = UIImage(named: "LaunchIcon")
                 cell.name.text = "Matthew Chen"
-                cell.ackLink.text = "https://www.matthewcychen.com"
+                cell.ackLink.text = "www.matthewcychen.com"
 
             }
         }

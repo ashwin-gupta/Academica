@@ -35,8 +35,6 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
         
         assessments = subject!.assessments!.allObjects as! [Assessment]
         
-        debugPrint(assessments)
-        print(subject)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,8 +73,6 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
             infoCell.infoLabel?.text = "Press + to add an assessment."
             infoCell.infoLabel?.textColor = .secondaryLabel
             infoCell.titleLabel?.text = "No Assessments!"
-            infoCell.selectionStyle = .none
-            tableView.isUserInteractionEnabled = false
             infoCell.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
             
             return infoCell
@@ -84,18 +80,20 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d h:mm a"
+            dateFormatter.dateFormat = "d MMM h:mm a"
             cell.nameLabel.text = assessments[indexPath.row].name
             
             cell.weightingLabel.text = String(format: "%.0f", assessments[indexPath.row].weighting) + "%"
-            cell.scoreLabel.text = String(format: "%.0f", assessments[indexPath.row].score)
+
             if assessments[indexPath.row].isCompleted {
                 cell.dueDateLabel.text = "Completed"
+                cell.scoreLabel.text = String(format: "%.0f", assessments[indexPath.row].score)
+                cell.scoreLabel.textColor = .secondaryLabel
                 
             } else {
-                
+                cell.scoreLabel.text = "In Progress"
+                cell.scoreLabel.textColor = .secondaryLabel
                 cell.dueDateLabel.text = dateFormatter.string(from: assessments[indexPath.row].dueDate!)
-                
             }
             
             return cell
@@ -115,6 +113,7 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
                 // Removing the subject from the user
                 self.databaseController?.deleteAssessment(subject: self.subject!, assessment: assessment)
                 self.assessments.remove(at: indexPath.row)
+                self.aggregateScoreLabel.text = String(self.calcAggregateScore(assessments: self.assessments))
                 self.assessmentTableView.reloadData()
             }))
             alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -131,8 +130,12 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
         var total: Double = 0
         
         for assessment in assessments {
-            total += (assessment.weighting/100) * assessment.score
-            
+            if !assessment.isCompleted {
+                break
+            } else {
+                total += (assessment.weighting/100) * assessment.score
+            }
+
         }
         
         return total
@@ -149,9 +152,20 @@ class AssessmentsViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == "editAssessmentSegue" {
             let destination = segue.destination as! EditAssessmentViewController
             destination.subject = subject
-            destination.assessment = assessments[assessmentTableView.indexPathForSelectedRow!.row]
+            
+            if assessments.isEmpty {
+                destination.newAssessment = true
+            } else {
+                destination.assessment = assessments[assessmentTableView.indexPathForSelectedRow!.row]
+                
+            }
+            
             
         } else if segue.identifier == "newAssessmentSegue" {
+            let destination = segue.destination as! EditAssessmentViewController
+            destination.subject = subject
+            destination.newAssessment = true
+        } else if segue.identifier == "newCellAssessmentSegue" {
             let destination = segue.destination as! EditAssessmentViewController
             destination.subject = subject
             destination.newAssessment = true
